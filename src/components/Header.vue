@@ -17,23 +17,24 @@
 </template>
 
 <script>
-    export default {
-        props: {
-                title: {
-                    type: String,
-                    default: "我是标题"
-                },
-            linkList: {
-                type: Array,
-                default: [
-                    {
-                        href:"/",
-                        picPath:""
-                    }
-                ]
-            },
-        },
+export default {
+  props: {
+    title: {
+      type: String,
+      default: '我是标题'
+    },
+    linkList: {
+      type: Array,
+      default: ()=>{ [
+        {
+          href: '/',
+          picPath: ''
+        }
+      ]
+      }
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
