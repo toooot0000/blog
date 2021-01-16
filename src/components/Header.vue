@@ -7,8 +7,8 @@
         <div class="desc">描述</div>
         <div class="link-list">
             <div class="link"  v-for="(link, ind) in linkList"  :key="ind">
-                <a href="/">
-                <img :src="'~@img/header/linkPic-'+ind+'.pgn'" :alt="'linkPic'+ind" srcset="">
+                <a :href="link.href">
+                <img :src="link.picPath||'~@img/header/linkPic-'+ind+'.pgn'" :alt="'linkPic'+ind" srcset="">
                 </a>
             </div>
         </div>
@@ -18,7 +18,21 @@
 
 <script>
     export default {
-        
+        props: {
+                title: {
+                    type: String,
+                    default: "我是标题"
+                },
+            linkList: {
+                type: Array,
+                default: [
+                    {
+                        href:"/",
+                        picPath:""
+                    }
+                ]
+            },
+        },
     }
 </script>
 
