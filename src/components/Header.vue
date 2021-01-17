@@ -20,6 +20,9 @@
 </template>
 
 <script>
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 export default {
   props: {
     title: {
@@ -31,15 +34,29 @@ export default {
       default: () => {
         [
           {
-            href: "/",
+            href: "#",
             picPath: ""
           }
         ];
       }
+    },
+    mounted() {
+      // let trigger = {
+      //   // trigger: ".wrapper",
+      //   start: 0,
+      //   end: 100,
+      //   scrub: 1
+      // };
+      // gsap.to(".img-ctn", {
+      //   scrollTrigger: trigger,
+      // });
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+  
+}
 </style>

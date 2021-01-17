@@ -2,13 +2,13 @@ module.exports = {
   pages: {
     main: {
       entry: './src/views/main/main.js',
-      template: './src/views/main/main.html',
+      template: './src/views/template.html',
       filename: 'main.html',
       title: "主页",
     },
     blog: {
       entry: './src/views/blog/blog.js',
-      template: './src/views/blog/blog.html',
+      template: './src/views/template.html',
       filename: 'blog.html',
       title: '我的博客',
     },
