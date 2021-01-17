@@ -1,15 +1,13 @@
 <template>
-  <div class="wrapper">
-    <div class="img-ctn">
-      <img src="~@img/header/iconMain.png" alt="Icon" srcset="" />
-    </div>
-    <div class="title">{{ title }}</div>
-    <div class="desc">{{ desc }}</div>
-    <div class="link-list">
-      <div class="link" v-for="(link, ind) in linkList" :key="ind">
+  <div class="wrapper container text-center my-5">
+    <img class="main-icon my-1" src="~@imgs/header/iconMain.jpg" alt="Icon" srcset="" />
+    <div class="title my-1" >{{ title }}</div>
+    <div class="desc my-1">{{ desc }}</div>
+    <div class="link-list d-flex flex-row justify-content-center my-1">
+      <div class="link d-inlineblock mx-2 my-1" v-for="(link, ind) in linkList" :key="ind">
         <a :href="link.href">
           <img
-            :src="link.picPath || '~@img/header/iconLink-' + ind + '.pgn'"
+            :src="link.picPath === '' ? '~@imgs/header/iconLink-' + ind + '.png':link.picPath"
             :alt="'linkPic' + ind"
             srcset=""
           />
@@ -28,6 +26,10 @@ export default {
     title: {
       type: String,
       default: "我是标题"
+    },
+    desc:{
+      type: String,
+      default: "我是描述"
     },
     linkList: {
       type: Array,
@@ -56,7 +58,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  
+.main-icon{
+  // height: 200px;
+  width: 200px;
 }
 </style>
