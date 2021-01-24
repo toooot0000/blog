@@ -35,6 +35,8 @@ $colors:(
     "minor": #777777,
     "warning": #a10000,
     "success": #0011aa,
+    "bg": #182131,
+    "shadow": #f5f79126,
 
 );
 
@@ -58,11 +60,38 @@ input {
 	transition-duration: 0.5s;
 }
 
-.container {
-    background-color: rgba($color: #182131, $alpha: 1);
+
+// .container-fluid { 
+//     background-color: rgba($color: map-get($map: $colors   , $key: "bg" ), $alpha: 1);
+// }
+
+.container, .container-fluid {
+    background-color: rgba($color: map-get($map: $colors   , $key: "bg" ), $alpha: 1);
     color: map-get($map: $colors   , $key: "main" );
-    box-shadow: 0 10px 15px #f5f79126;
-    margin-bottom: 5vh;
+    padding: 3rem;
+    box-shadow: 0 2px 20px #f5f79126;
+    // width: 90%;
+}
+
+.container:hover{
+    box-shadow: 0 10px 15px #f5f79157;
+    transform: scale(1.02) translateY(-5px);
+}
+
+.row{
+    width: 100%;
+}
+
+.seperator{
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right,
+        #80808011, 
+        rgba(179, 179, 179, 1) 20%, 
+        white 50%, 
+        rgba(179, 179, 179, 1) 80%, 
+        #80808011
+    );
 }
 
 // text-{main, sub, minor, warning, success}

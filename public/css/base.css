@@ -19,11 +19,26 @@ input {
   transition-duration: 0.5s;
 }
 
-.container {
+.container, .container-fluid {
   background-color: #182131;
   color: #cecece;
-  box-shadow: 0 10px 15px #f5f79126;
-  margin-bottom: 5vh;
+  padding: 3rem;
+  box-shadow: 0 2px 20px #f5f79126;
+}
+
+.container:hover {
+  box-shadow: 0 10px 15px #f5f79157;
+  transform: scale(1.02) translateY(-5px);
+}
+
+.row {
+  width: 100%;
+}
+
+.seperator {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, #80808011, #b3b3b3 20%, white 50%, #b3b3b3 80%, #80808011);
 }
 
 .text-main {
@@ -44,6 +59,14 @@ input {
 
 .text-success {
   color: #0011aa;
+}
+
+.text-bg {
+  color: #182131;
+}
+
+.text-shadow {
+  color: #f5f79126;
 }
 
 /*# sourceMappingURL=base.css.map */

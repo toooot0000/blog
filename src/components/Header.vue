@@ -1,20 +1,13 @@
 <template>
-  <div class="wrapper container text-center my-sm-5 py-3 mb-3">
-    <div class="row">
-      <div class="col-3 col-md-4 offset-sm-1 text-end">
-        <img
-          class="main-icon my-1"
-          src="~@imgs/header/iconMain.jpg"
-          alt="Icon"
-          srcset=""
-        />
-      </div>
-      <div class="col-5 col-sm-4 offset-3 offset-md-0 text-start">
-        <div class="title mt-1 mb-4 font-weight-bold text-nowrap border-bottom border-light">
+  <div class="wrapper container text-center mt-5">
+    <div class="d-flex justify-content-center px-3">
+      <div class="text-center mx-3">
+        <div class="title my-1 font-weight-bold text-nowrap">
           {{ title }}
         </div>
-        <div class="desc mt-1 mb-3 text-sub">{{ desc }}</div>
-        <div class="link-list d-flex flex-row justify-content-left my-1">
+        <div class="seperator mb-3"></div>
+        <div class="desc my-2 text-sub">{{ desc }}</div>
+        <div class="link-list d-flex flex-row justify-content-center my-2">
           <div
             class="link d-inlineblock mx-2 my-1"
             v-for="(link, ind) of linkList"
@@ -43,6 +36,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 export default {
+  name:"Header",
   props: {
     title: {
       type: String,
@@ -89,11 +83,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrapper{
+  background: none;
+  box-shadow: none;
+}
+
+.ctn-icon{
+  height: 100%;
+}
+
 .main-icon {
-  width: 200px;
+  max-width: 200px;
 }
 .title {
-  font-size: calc(1.75rem + 1.5vw);
+  font-size: calc(1.95rem + 1.5vw);
 }
 
 .link-icon {

@@ -18,10 +18,11 @@ module.exports = {
   chainWebpack: config => {
     const path = require("path");
     config.resolve.alias
-      // 两个常用的位置做成别名，引用的时候使用别名，webpack打包的时候可以生成对应的相对目录
+      // 常用的位置做成别名，引用的时候使用别名，webpack打包的时候可以生成对应的相对目录
       .set("@imgs", path.resolve("public/img"))
       .set("@comps", path.resolve("src/components"))
-      .set("@assets", path.resolve("src/assets"));
+      .set("@assets", path.resolve("src/assets"))
+    .end();
     config.module.rule("eslint").use("eslint-loader");
   }
 };
