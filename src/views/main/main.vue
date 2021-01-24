@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TopNavVar></TopNavVar>
+    <NavBar></NavBar>
     <Header></Header>
     <div class="container">
       <div class="block"></div>
@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import TopNavVar from "../../components/TopNavVar.vue";
 import Header from "@comps/Header.vue";
+import NavBar from "@comps/NavBar.vue";
 
 export default {
   name: "PageMain",
   components: {
     Header,
-    TopNavVar
+    NavBar
   }
 };
 </script>
