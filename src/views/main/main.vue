@@ -2,7 +2,7 @@
   <div id="app">
     <NavBar></NavBar>
     <Header></Header>
-    <div class="container">
+    <div class="container content">
       <div class="block"></div>
     </div>
   </div>
@@ -21,7 +21,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+// @use "@assets/sass/base.scss";
 .block {
   height: 2000px;
 }

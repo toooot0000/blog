@@ -1,0 +1,25 @@
+@forward '../../../node_modules/rfs/scss.scss';
+
+@mixin seperator(
+	$thickness: 1px,
+	$length: 100px,
+	$bg:
+		linear-gradient(
+			to right,
+			#80808011,
+			rgba(179, 179, 179, 1) 20%,
+			white 50%,
+			rgba(179, 179, 179, 1) 80%,
+			#80808011
+		),
+	$dir: horizontal
+) {
+	@if $dir==horizontal {
+		height: $thickness;
+		width: $length;
+	} @else {
+		height: $length;
+		width: $thickness;
+	}
+	background: $bg;
+}
