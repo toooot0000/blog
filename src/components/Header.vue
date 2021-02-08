@@ -80,11 +80,7 @@ export default {
   },
   data() {
     return {
-      to: null,
-      animStart: false,
-      animEnd: false,
       isAnimFinished: false,
-      isScrubbing: true,
     };
   },
   mounted() {
@@ -100,9 +96,6 @@ export default {
         markers: true,
         onEnter() {
           that.isAnimFinished = false;
-        },
-        onScrubComplete() {
-          that.isScrubbing = false;
         },
         onEnterBack() {
           that.isAnimFinished = false;
@@ -123,10 +116,6 @@ export default {
           setTimeout(() => {
             that.isAnimFinished = true;
           }, 500);
-          // that.isAnimFinished = true;
-        },
-        onUpdate() {
-          that.isScrubbing = true;
         },
       });
       gsap.to([".seperator", ".desc", ".title", ".link-list"], {
@@ -164,11 +153,6 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-    },
-  },
-  computed: {
-    realFinished: function () {
-      return this.isAnimFinished && !this.isScrubbing;
     },
   },
 };
