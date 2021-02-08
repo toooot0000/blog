@@ -11,6 +11,7 @@ html {
     // color: map-get($map: $color, $key: 'main')
 }
 
+// 统一容器类样式
 .container,
 .container-fluid {
 	background-color: rgba(
@@ -23,16 +24,19 @@ html {
     transition: all .5s;
 }
 
+// 容器类的鼠标悬浮样式
 .container:hover {
 	box-shadow: 0 10px 15px #f5f79157;
 	transform: scale(1.02) translateY(-5px);
 }
 
+// 通用的分界线类
 .seperator {
     @include mixin.seperator($thickness: 2px, $length: 100%, $dir:horizontal, 
         $bg: #ffffff80);
 }
 
+// 通用文字颜色类
 // text-{main, sub, minor, warning, success}
 @each $type, $value in $colors {
 	.text-#{$type} {

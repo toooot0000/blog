@@ -1,3 +1,7 @@
+// 混入
+
+// 引入rfs，bootstrap内部维护的Responsive prop value mixins. 
+// 核心混入： rfs($value, $propName)
 @forward '../../../node_modules/rfs/scss.scss';
 
 @mixin seperator(
