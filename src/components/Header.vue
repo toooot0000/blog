@@ -1,6 +1,10 @@
 <template>
   <div class="wrp">
-    <div class="ctn container">
+    <div class="ctn container" :class="{
+      finished: isAnimFinished,
+    }"
+      @click="backTop"
+    >
       <div class="title">
         {{ title }}
       </div>
@@ -26,6 +30,9 @@
 </template>
 
 <script>
+// // 点击时返回顶部
+// TODO 调整滑动效果
+// TODO 顶部点状扩散效果
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -67,17 +74,35 @@ export default {
       to: null,
       animStart: false,
       animEnd: false,
+      isAnimFinished: false,
     }
   },
   mounted() {
+    const that = this;
+
+    // * 绑定滚动动画
     let trigger = {
       trigger: ".wrp",
       start: 0,
       end: 50,
       scrub: 0,
-      pin: true,
+      pin: false,
+      markers: true,
+      onEnter(){
+        that.isAnimFinished = false;
+      },
+      onLeave(){
+        that.isAnimFinished = true;
+      },
+      onEnterBack(){
+        console.log('Enter back');
+        that.isAnimFinished = true;
+      },
+      onLeaveBack(){
+        console.log('Leave back');
+        that.isAnimFinished = false;
+      }
     };
-    // let that = this;
     gsap.to(".ctn", {
       scrollTrigger: trigger,
       scale: 0.1,
@@ -86,23 +111,45 @@ export default {
       duration: 1,
       background: 'white',
       opacity: .8,
-      y: '-40vh',
-      borderRadius: "50%",
+      top: '5vh',
+      borderRadius: "999rem",
       ease: 'none',
     });
     gsap.to([".seperator", ".desc", ".title", ".link-list"], {
       scrollTrigger: trigger,
       duration: 1,
       opacity: 0,
-      ease: 'expo.out',
+      fontSize: '0.2rem',
     });
+
+    // * 监听滚动事件
+    window.addEventListener('scroll', that.scrollEvent)
+  },
+  destroyed(){
+    const that = this;
+    window.removeEventListener('scroll', that.scrollEvent)
+  },
+  methods:{
+    backTop(){
+      // * 返回顶部
+      const that = this
+      let timer = setInterval(() => {
+        let ispeed = Math.floor(-that.scrollTop / 5)
+        document.documentElement.scrollTop = document.body.scrollTop = that.scrollTop + ispeed
+        if (that.scrollTop === 0) {
+          clearInterval(timer)
+        }
+      }, 16)
+    },
+    scrollEvent(){
+      const that = this;
+      that.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-// @use "@assets/sass/config.scss";
-// @use "@assets/sass/mixin.scss";
 @use "@assets/sass/base";
 
 
@@ -110,9 +157,7 @@ export default {
   color: map-get($map: base.$colors, $key: "main");
   width: 100%;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
+  z-index: 1000;
 }
 
 .ctn{
@@ -120,8 +165,16 @@ export default {
   box-shadow: none;
   text-align: center;
   max-width: 90%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: inherit;
   &:hover{
     box-shadow: none;
+  }
+  &.finished{
+    cursor: pointer;
   }
 }
 
