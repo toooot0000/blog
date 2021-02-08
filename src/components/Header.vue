@@ -3,28 +3,34 @@
     <div
       class="ctn container"
       :class="{
-        finished: isAnimFinished,
+        finished: realFinished,
       }"
       @click="backTop"
     >
-      <div class="title">
-        {{ title }}
-      </div>
-      <div class="seperator"></div>
-      <div class="desc">{{ desc }}</div>
-      <div class="link-list">
-        <div class="link" v-for="(link, ind) of linkList" :key="ind">
-          <a :href="link.href">
-            <img
-              :src="
-                link.picPath === ''
-                  ? './img/header/iconLink-' + (ind + 1).toString() + '.png'
-                  : link.picPath
-              "
-              :alt="'linkPic' + ind"
-              class="link-icon"
-            />
-          </a>
+      <div
+        :style="{
+          display: isAnimFinished ? 'none' : 'block',
+        }"
+      >
+        <div class="title">
+          {{ title }}
+        </div>
+        <div class="seperator"></div>
+        <div class="desc">{{ desc }}</div>
+        <div class="link-list">
+          <div class="link" v-for="(link, ind) of linkList" :key="ind">
+            <a :href="link.href">
+              <img
+                :src="
+                  link.picPath === ''
+                    ? './img/header/iconLink-' + (ind + 1).toString() + '.png'
+                    : link.picPath
+                "
+                :alt="'linkPic' + ind"
+                class="link-icon"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -35,6 +41,7 @@
 // // 点击时返回顶部
 // TODO 调整滑动效果
 // TODO 顶部点状扩散效果
+// // 点击范围局限于圆点上
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -77,6 +84,7 @@ export default {
       animStart: false,
       animEnd: false,
       isAnimFinished: false,
+      isScrubbing: false,
     };
   },
   mounted() {
@@ -88,23 +96,31 @@ export default {
         trigger: ".wrp",
         start: 0,
         end: 50,
-        scrub: 0,
+        scrub: .1,
         pin: false,
         markers: true,
         onEnter() {
           that.isAnimFinished = false;
         },
-        onLeave() {
-          that.isAnimFinished = true;
+        onScrubComplete() {
+          that.isScrubbing = false;
+        },
+        onUpdate(){
+          console.log('更新前');
+          console.log(that.isScrubbing)
+          that.isScrubbing = true;
+          console.log('更新后');
+          console.log(that.isScrubbing)
+
         },
         onEnterBack() {
-          console.log("Enter back");
-          that.isAnimFinished = true;
-        },
-        onLeaveBack() {
-          console.log("Leave back");
+          // console.log("Enter back");
           that.isAnimFinished = false;
         },
+        // onLeaveBack() {
+        //   // console.log("Leave back");
+        //   that.isAnimFinished = false;
+        // },
       };
       gsap.to(".ctn", {
         scrollTrigger: trigger,
@@ -117,6 +133,9 @@ export default {
         top: "5vh",
         borderRadius: "999rem",
         ease: "none",
+        onComplete: ()=>{
+          that.isAnimFinished = true;
+        }
       });
       gsap.to([".seperator", ".desc", ".title", ".link-list"], {
         scrollTrigger: trigger,
@@ -128,9 +147,15 @@ export default {
 
     // * 监听滚动事件
     window.addEventListener("scroll", that.scrollEvent);
+
+    // // * 绑定扩散动画
+    // {
+    //   gsap.to
+    // }
   },
   destroyed() {
     const that = this;
+    // * 解绑滚动事件
     window.removeEventListener("scroll", that.scrollEvent);
   },
   methods: {
@@ -154,6 +179,11 @@ export default {
         document.body.scrollTop;
     },
   },
+  computed:{
+    realFinished:function(){
+      return this.isAnimFinished && !this.isScrubbing
+    }
+  }
 };
 </script>
 
@@ -177,13 +207,47 @@ export default {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: inherit;
+  transition: 0;
   &:hover {
     box-shadow: none;
   }
   &.finished {
     cursor: pointer;
+    // 点状扩散动画
+    &::before,
+    &::after{
+      transition: all .5s;
+      content: "";
+      display: block;
+      visibility: visible;
+      border: 10px solid white;
+      border-radius: 50%;
+      animation: 1s riddle ease-out infinite forwards;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &::after{
+      animation-delay: .5s;
+    }
   }
 }
+
+@keyframes riddle{
+  from{
+    transform: scale(0);
+    opacity: .8;
+  }
+
+  to{
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
 
 .seperator {
   margin: 25px 0;
