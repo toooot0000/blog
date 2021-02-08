@@ -192,7 +192,7 @@ export default {
       visibility: visible;
       border: 10px solid white;
       border-radius: 50%;
-      animation: 1s riddle ease-out infinite forwards;
+      animation: 3s riddle ease-out infinite forwards;
       width: 100%;
       height: 100%;
       position: absolute;
@@ -201,7 +201,7 @@ export default {
       transform: translate(-50%, -50%);
     }
     &::after {
-      animation-delay: 0.5s;
+      animation-delay: 1.5s;
     }
   }
 }
@@ -213,7 +213,8 @@ export default {
   }
 
   to {
-    transform: translate(-50%, -50%) scale(2.5);
+    transform: translate(-50%, -50%) scale(4.5);
+    border-width: 0px;
     opacity: 0;
   }
 }
