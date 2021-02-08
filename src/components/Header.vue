@@ -40,7 +40,7 @@
 <script>
 // // 点击时返回顶部
 // TODO 调整滑动效果
-// TODO 顶部点状扩散效果
+// // 顶部点状扩散效果
 // // 点击范围局限于圆点上
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -81,6 +81,7 @@ export default {
   data() {
     return {
       isAnimFinished: false,
+      animTimeOut: null,
     };
   },
   mounted() {
@@ -95,9 +96,15 @@ export default {
         scrub: 0.1,
         markers: true,
         onEnter() {
+          if(that.animTimeOut){
+            window.clearTimeout(that.animTimeOut)
+          }
           that.isAnimFinished = false;
         },
         onEnterBack() {
+          if(that.animTimeOut){
+            window.clearTimeout(that.animTimeOut)
+          }
           that.isAnimFinished = false;
         },
       };
@@ -113,7 +120,7 @@ export default {
         borderRadius: "999rem",
         ease: "none",
         onComplete: () => {
-          setTimeout(() => {
+          that.animTimeOut = setTimeout(() => {
             that.isAnimFinished = true;
           }, 500);
         },
