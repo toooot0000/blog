@@ -42,6 +42,7 @@
 // TODO 调整滑动效果
 // // 顶部点状扩散效果
 // // 点击范围局限于圆点上
+// TODO 在上部一个范围内增加一个区域将背景部分绘制上去，作为导航栏的背景
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
