@@ -3,7 +3,7 @@
     <div
       class="ctn container"
       :class="{
-        finished: realFinished,
+        finished: isAnimFinished,
       }"
       @click="backTop"
     >
@@ -84,7 +84,7 @@ export default {
       animStart: false,
       animEnd: false,
       isAnimFinished: false,
-      isScrubbing: false,
+      isScrubbing: true,
     };
   },
   mounted() {
@@ -96,8 +96,7 @@ export default {
         trigger: ".wrp",
         start: 0,
         end: 50,
-        scrub: .1,
-        pin: false,
+        scrub: 0.1,
         markers: true,
         onEnter() {
           that.isAnimFinished = false;
@@ -105,41 +104,34 @@ export default {
         onScrubComplete() {
           that.isScrubbing = false;
         },
-        onUpdate(){
-          console.log('更新前');
-          console.log(that.isScrubbing)
-          that.isScrubbing = true;
-          console.log('更新后');
-          console.log(that.isScrubbing)
-
-        },
         onEnterBack() {
-          // console.log("Enter back");
           that.isAnimFinished = false;
         },
-        // onLeaveBack() {
-        //   // console.log("Leave back");
-        //   that.isAnimFinished = false;
-        // },
       };
       gsap.to(".ctn", {
         scrollTrigger: trigger,
         scale: 0.1,
         height: 100,
         width: 100,
-        duration: 1,
+        duration: 0.2,
         background: "white",
         opacity: 0.8,
         top: "5vh",
         borderRadius: "999rem",
         ease: "none",
-        onComplete: ()=>{
-          that.isAnimFinished = true;
-        }
+        onComplete: () => {
+          setTimeout(() => {
+            that.isAnimFinished = true;
+          }, 500);
+          // that.isAnimFinished = true;
+        },
+        onUpdate() {
+          that.isScrubbing = true;
+        },
       });
       gsap.to([".seperator", ".desc", ".title", ".link-list"], {
         scrollTrigger: trigger,
-        duration: 1,
+        duration: 0.2,
         opacity: 0,
         fontSize: "0.2rem",
       });
@@ -147,11 +139,6 @@ export default {
 
     // * 监听滚动事件
     window.addEventListener("scroll", that.scrollEvent);
-
-    // // * 绑定扩散动画
-    // {
-    //   gsap.to
-    // }
   },
   destroyed() {
     const that = this;
@@ -179,11 +166,11 @@ export default {
         document.body.scrollTop;
     },
   },
-  computed:{
-    realFinished:function(){
-      return this.isAnimFinished && !this.isScrubbing
-    }
-  }
+  computed: {
+    realFinished: function () {
+      return this.isAnimFinished && !this.isScrubbing;
+    },
+  },
 };
 </script>
 
@@ -215,8 +202,7 @@ export default {
     cursor: pointer;
     // 点状扩散动画
     &::before,
-    &::after{
-      transition: all .5s;
+    &::after {
       content: "";
       display: block;
       visibility: visible;
@@ -230,24 +216,23 @@ export default {
       top: 50%;
       transform: translate(-50%, -50%);
     }
-    &::after{
-      animation-delay: .5s;
+    &::after {
+      animation-delay: 0.5s;
     }
   }
 }
 
-@keyframes riddle{
-  from{
-    transform: scale(0);
-    opacity: .8;
+@keyframes riddle {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
   }
 
-  to{
-    transform: scale(2.5);
+  to {
+    transform: translate(-50%, -50%) scale(2.5);
     opacity: 0;
   }
 }
-
 
 .seperator {
   margin: 25px 0;
