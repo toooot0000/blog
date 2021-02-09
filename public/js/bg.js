@@ -35,7 +35,7 @@ function generate() {
     stars.push({
       x: 0,
       y: 0,
-      z: STAR_MIN_SCALE + Math.pow(Math.random(), 3) * (1 - STAR_MIN_SCALE)
+      z: STAR_MIN_SCALE + Math.random() * (1 - STAR_MIN_SCALE)
     });
   }
 }
@@ -113,7 +113,7 @@ function step() {
       navContext = navCanvas.getContext("2d");
     }
   } else {
-    navContext.clearRect(0, 0, width, height)
+    navContext.clearRect(0, 0, width, height);
     render(navContext);
   }
 
@@ -150,9 +150,9 @@ function update() {
 function render(context) {
   stars.forEach(star => {
     // context.beginPath();
-    if(star.y>context.canvas.height) return;
+    if (star.y > context.canvas.height) return;
     context.lineCap = "round";
-    context.lineWidth = STAR_SIZE * star.z * scale;
+    context.lineWidth = STAR_SIZE * star.z * scale / 2;
     context.strokeStyle =
       "rgba(" +
       250 +
@@ -161,7 +161,7 @@ function render(context) {
       "," +
       255 +
       "," +
-      (0.2 + 0.5 * Math.random()) +
+      (0.3 + 0.5 * Math.random()) +
       ")";
 
     context.beginPath();
