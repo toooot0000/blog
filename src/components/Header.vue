@@ -39,16 +39,19 @@
 
 <script>
 // // 点击时返回顶部
-// TODO 调整滑动效果
+// // 调整滑动效果
 // // 顶部点状扩散效果
 // // 点击范围局限于圆点上
-// TODO 在上部一个范围内增加一个区域将背景部分绘制上去，作为导航栏的背景
-// TODO 滚动上去后在下方显示一个文字
+// // 在上部一个范围内增加一个区域将背景部分绘制上去，作为导航栏的背景
+// // 滚动上去后在下方显示一个文字
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 export default {
-  components:{},
+  model: {
+    props: "isAnimFinished",
+    event: "animFinished",
+  },
   name: "Header",
   props: {
     title: {
@@ -85,6 +88,7 @@ export default {
     return {
       isAnimFinished: false,
       animTimeOut: null,
+      firstScrollTarget: 0,
     };
   },
   mounted() {
@@ -94,19 +98,20 @@ export default {
     {
       let trigger = {
         trigger: ".wrp",
-        start: 0,
+        start: 5,
         end: 50,
         scrub: 0.1,
         markers: true,
         onEnter() {
-          if(that.animTimeOut){
-            window.clearTimeout(that.animTimeOut)
+          if (that.animTimeOut) {
+            window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
+          that.firstScroll();
         },
         onEnterBack() {
-          if(that.animTimeOut){
-            window.clearTimeout(that.animTimeOut)
+          if (that.animTimeOut) {
+            window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
         },
@@ -135,9 +140,12 @@ export default {
         fontSize: "0.2rem",
       });
     }
-
     // * 监听滚动事件
     window.addEventListener("scroll", that.scrollEvent);
+
+    // * 初始化滚动吸附位置
+    this.firstScrollTarget = window.innerHeight * 0.8;
+    // console.log(this.firstScrollTarget);
   },
   destroyed() {
     const that = this;
@@ -146,7 +154,6 @@ export default {
   },
   methods: {
     backTop() {
-      // * 返回顶部
       const that = this;
       let timer = setInterval(() => {
         let ispeed = Math.floor(-that.scrollTop / 5);
@@ -163,6 +170,24 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
+    },
+    firstScroll() {
+      const that = this;
+      if (that.scrollTop < that.firstScrollTarget) {
+        let timer = setInterval(() => {
+          let spd = Math.min(Math.abs(that.scrollTop - that.firstScrollTarget) / 5, 30);
+          document.documentElement.scrollTop = document.body.scrollTop =
+            that.scrollTop + spd;
+          if (that.scrollTop - that.firstScrollTarget >= 50) {
+            clearInterval(timer);
+          }
+        }, 16);
+      }
+    },
+  },
+  watch: {
+    isAnimFinished: function (nVal) {
+      this.$emit("animFinished", nVal);
     },
   },
 };

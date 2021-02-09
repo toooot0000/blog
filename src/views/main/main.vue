@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <NavBar></NavBar>
-    <Header></Header>
+    <NavBar :isActive='isHeaderAnimFinished'></NavBar>
+    <Header v-model="isHeaderAnimFinished"></Header>
     <div class="container content">
       <div class="block"></div>
     </div>
@@ -17,7 +17,10 @@ export default {
   components: {
     Header,
     NavBar
-  }
+  },
+  data:()=>({
+    isHeaderAnimFinished: false,
+  })
 };
 </script>
 
