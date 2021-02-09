@@ -2,14 +2,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap");
 
 $text-color-main: #cecece;
-$text-color-sub: #aaaaaa;
-$colors:(
-    "main": #cecece,
-    "sub": #aaaaaa,
-    "minor": #777777,
+$text-color-sub : #aaaaaa;
+$colors         : (
+    "main"   : #cecece,
+    "sub"    : #aaaaaa,
+    "minor"  : #777777,
     "warning": #a10000,
     "success": #0011aa,
-    "bg": #182131,
-    "shadow": #f5f79126,
+    "bg"     : #182131,
+    "shadow" : #f5f79126,
 
 );
+
+$layers:(
+    header : 1000,
+    content: 0,
+    bg     : -1000,
+);
+
+$z-ind-header : 1000;
+$z-ind-content: 0;
+$z-ind-bg     : -1000;

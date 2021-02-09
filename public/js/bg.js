@@ -4,7 +4,9 @@ const STAR_COUNT = (window.innerWidth + window.innerHeight) / 8,
   OVERFLOW_THRESHOLD = 50;
 
 const canvas = document.querySelector(".bg-canvas"),
-    context = canvas.getContext("2d");
+  context = canvas.getContext("2d");
+let navCanvas = document.getElementById("nav-bg-cvs"),
+  navContext = null;
 
 let scale = 1, // device pixel ratio
   width,
@@ -33,7 +35,7 @@ function generate() {
     stars.push({
       x: 0,
       y: 0,
-      z: STAR_MIN_SCALE + Math.pow(Math.random(), 3)  * (1 - STAR_MIN_SCALE)
+      z: STAR_MIN_SCALE + Math.pow(Math.random(), 3) * (1 - STAR_MIN_SCALE)
     });
   }
 }
@@ -102,7 +104,18 @@ function step() {
   context.clearRect(0, 0, width, height);
 
   update();
-  render();
+  render(context);
+
+  // 渲染navCanvas
+  if (navContext == null) {
+    navCanvas = document.getElementById("nav-bg-cvs");
+    if (navCanvas) {
+      navContext = navCanvas.getContext("2d");
+    }
+  } else {
+    navContext.clearRect(0, 0, width, height)
+    render(navContext);
+  }
 
   requestAnimationFrame(step);
 }
@@ -134,9 +147,10 @@ function update() {
   });
 }
 
-function render() {
+function render(context) {
   stars.forEach(star => {
-    context.beginPath();
+    // context.beginPath();
+    if(star.y>context.canvas.height) return;
     context.lineCap = "round";
     context.lineWidth = STAR_SIZE * star.z * scale;
     context.strokeStyle =
@@ -154,11 +168,11 @@ function render() {
     context.moveTo(star.x, star.y);
 
     var tailX = velocity.x * 2 * Math.pow(star.z, 3),
-      tailY = velocity.y * 2 *  Math.pow(star.z, 3);
+      tailY = velocity.y * 2 * Math.pow(star.z, 3);
 
     // stroke() wont work on an invisible line
-    if (Math.abs(tailX) < 0.1) tailX = 0.5;
-    if (Math.abs(tailY) < 0.1) tailY = 0.5;
+    if (Math.abs(tailX) < 0.1) tailX = 0.2;
+    if (Math.abs(tailY) < 0.1) tailY = 0.2;
 
     context.lineTo(star.x + tailX, star.y + tailY);
 
