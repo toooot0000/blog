@@ -19,7 +19,6 @@
 export default {
   name: "NavBar",
   mounted() {
-    // window.requestAnimationFrame(this.updateBg)
     this.setBg();
   },
   methods: {
@@ -55,7 +54,5 @@ export default {
   z-index: base.$z-ind-header - 1;
   width: 100%;
 }
-// .cvs {
-//   width: 100%;
-// }
+
 </style>
