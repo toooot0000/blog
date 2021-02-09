@@ -119,7 +119,7 @@ export default {
         duration: 0.2,
         background: "white",
         opacity: 0.8,
-        top: "5vh",
+        top: "3vh",
         borderRadius: "999rem",
         ease: "none",
         onComplete: () => {

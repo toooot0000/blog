@@ -27,7 +27,7 @@ export default {
       let scale = window.devicePixelRatio || 1;
       let width = window.innerWidth * scale;
       nvBgCvs.width = width;
-      nvBgCvs.height = 200;
+      nvBgCvs.height = window.innerHeight*0.08;
     },
     updateBg() {
       // 获取背景cvs
