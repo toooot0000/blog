@@ -1,6 +1,23 @@
 <template>
   <div class="wrp">
-    <NavBar :isActive="isAnimFinished"></NavBar>
+    <NavBar :isActive="isAnimFinished"
+      :leftList="[
+        {
+          text: title,
+          url: '#',
+        }
+      ]"
+      :rightList="[
+        {
+          text: '主页',
+          url: '/main'
+        },
+        {
+          text: '关于',
+          url: '/about'
+        }
+      ]"
+    ></NavBar>
     <div
       class="ctn container"
       :class="{
