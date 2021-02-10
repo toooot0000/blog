@@ -1,5 +1,6 @@
 <template>
   <div class="wrp">
+    <NavBar :isActive="isAnimFinished"></NavBar>
     <div
       class="ctn container"
       :class="{
@@ -46,8 +47,12 @@
 // // 滚动上去后在下方显示一个文字
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import NavBar from "./NavBar";
 gsap.registerPlugin(ScrollTrigger);
 export default {
+  components: {
+    NavBar,
+  },
   model: {
     props: "isAnimFinished",
     event: "animFinished",
@@ -118,16 +123,16 @@ export default {
       };
       // 空动画，保证向上滚动的时候直接滚动到顶部
       gsap.to("#empty", {
-        scrollTrigger:{
-          trigger: '.wrp',
+        scrollTrigger: {
+          trigger: ".wrp",
           start: 5,
-          end: window.innerHeight*0.8,
+          end: window.innerHeight * 0.8,
           // markers: true,
-          onEnterBack(){
+          onEnterBack() {
             that.backTop();
-          }
-        }
-      })
+          },
+        },
+      });
       gsap.to(".ctn", {
         scrollTrigger: trigger,
         scale: 0.1,
@@ -156,7 +161,7 @@ export default {
     window.addEventListener("scroll", that.scrollEvent);
 
     // * 初始化滚动吸附位置
-    this.firstScrollTarget = window.innerHeight*0.95;
+    this.firstScrollTarget = window.innerHeight * 0.95;
   },
   destroyed() {
     const that = this;
@@ -186,7 +191,10 @@ export default {
       const that = this;
       if (that.scrollTop < that.firstScrollTarget) {
         let timer = setInterval(() => {
-          let spd = Math.min(Math.abs(that.scrollTop - that.firstScrollTarget) / 5, 30);
+          let spd = Math.min(
+            Math.abs(that.scrollTop - that.firstScrollTarget) / 5,
+            30
+          );
           document.documentElement.scrollTop = document.body.scrollTop =
             that.scrollTop + spd;
           if (that.scrollTop - that.firstScrollTarget >= -40) {
