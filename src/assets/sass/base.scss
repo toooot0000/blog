@@ -1,3 +1,6 @@
+// 修改一些bootstrap默认配置
+// $link-decoration: none;
+// $link-hover-decoration: none;
 @use '../../../node_modules/bootstrap/scss/bootstrap-reboot.scss';
 @use '../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
 @forward '../../../node_modules/bootstrap/scss/bootstrap-grid.scss' as b-*;

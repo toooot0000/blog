@@ -72,7 +72,12 @@ export default {
   width: 100%;
 }
 .cvs-ctn {
-  background-image: radial-gradient(circle at top right, #0d1a25, #110f12);
+  background-image: radial-gradient(
+      circle at top right,
+      rgb(13 26 37),
+      #150e0e 1000px
+    ),
+    radial-gradient(circle at 50px 600px, rgb(147 40 239), #903d9a 500px);
   padding: 0;
   border: 0;
   &.active {
@@ -98,11 +103,15 @@ export default {
     margin: 0 30px;
     a {
       color: inherit;
+      text-decoration: none;
+      &:hover {
+        text-decoration: none;
+      }
     }
-    &.left{
+    &.left {
       transform: translateX(100%);
     }
-    &.right{
+    &.right {
       transform: translateX(-100%);
     }
     // transform: translateY(-100%);

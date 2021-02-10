@@ -101,7 +101,7 @@ export default {
         start: 5,
         end: 50,
         scrub: 0.1,
-        markers: true,
+        // markers: true,
         onEnter() {
           if (that.animTimeOut) {
             window.clearTimeout(that.animTimeOut);
@@ -116,6 +116,18 @@ export default {
           that.isAnimFinished = false;
         },
       };
+      // 空动画，保证向上滚动的时候直接滚动到顶部
+      gsap.to("#empty", {
+        scrollTrigger:{
+          trigger: '.wrp',
+          start: 5,
+          end: window.innerHeight*0.8,
+          // markers: true,
+          onEnterBack(){
+            that.backTop();
+          }
+        }
+      })
       gsap.to(".ctn", {
         scrollTrigger: trigger,
         scale: 0.1,
@@ -144,8 +156,7 @@ export default {
     window.addEventListener("scroll", that.scrollEvent);
 
     // * 初始化滚动吸附位置
-    this.firstScrollTarget = window.innerHeight * 0.8;
-    // console.log(this.firstScrollTarget);
+    this.firstScrollTarget = window.innerHeight*0.95;
   },
   destroyed() {
     const that = this;
@@ -178,7 +189,7 @@ export default {
           let spd = Math.min(Math.abs(that.scrollTop - that.firstScrollTarget) / 5, 30);
           document.documentElement.scrollTop = document.body.scrollTop =
             that.scrollTop + spd;
-          if (that.scrollTop - that.firstScrollTarget >= 50) {
+          if (that.scrollTop - that.firstScrollTarget >= -40) {
             clearInterval(timer);
           }
         }, 16);
