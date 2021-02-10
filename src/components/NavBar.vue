@@ -15,11 +15,30 @@
         active: isActive,
       }"
     >
-      <li class="link left">
-        <a href="#">主页</a>
+      <li class="links left">
+        <!-- <a class="link-item" href="#">主页</a> -->
+        <a
+          class="link-item"
+          v-for="(item, ind) in leftList"
+          :key="item.text"
+          :href="item.url"
+          :style="{
+            'transition-delay': (leftList.length - ind - 1)*0.2+'s'
+          }"
+          >{{ item.text}}</a
+        >
       </li>
-      <li class="link right">
-        <a href="#">关于</a>
+      <li class="links right">
+        <a
+          class="link-item"
+          v-for="(item, ind) in rightList"
+          :key="item.text"
+          :href="item.url"
+          :style="{
+            'transition-delay': ind*0.2+'s'
+          }"
+          >{{ item.text}}</a
+        >
       </li>
     </ul>
   </div>
@@ -33,6 +52,37 @@ export default {
     isActive: {
       type: Boolean,
       default: true,
+    },
+    // 左侧内容：
+    // {名字：url}
+    leftList: {
+      type: Array,
+      default: () => [
+        {
+          text: "左侧1",
+          url: "#",
+        },
+        {
+          text: "左侧2",
+          url: "#",
+        },
+      ],
+    },
+
+    // 左侧内容：
+    // {名字：url}
+    rightList: {
+      type: Array,
+      default: () => [
+        {
+          text: "左侧1",
+          url: "#",
+        },
+        {
+          text: "左侧2",
+          url: "#",
+        },
+      ],
     },
   },
   mounted() {
@@ -80,6 +130,8 @@ export default {
     radial-gradient(circle at 50px 600px, rgb(147 40 239), #903d9a 500px);
   padding: 0;
   border: 0;
+  transition: all 0.5s;
+  box-shadow: 0px 0px 0px #0d1a25;
   &.active {
     box-shadow: 5px 0px 10px #0d1a25;
   }
@@ -88,38 +140,60 @@ export default {
   }
 }
 .link-ctn {
+  margin: 0;
+  padding: 0;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
   top: 1.5vh;
-  padding: 0;
-  margin: 0;
+  transform: translateX(-50%);
 
-  .link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  .links {
+    flex-grow: 1;
+    flex-basis: 50%;
     display: inline-block;
     color: white;
-    transition: all 0.5s;
-    opacity: 0;
     margin: 0 30px;
-    a {
+    
+    .link-item {
       color: inherit;
       text-decoration: none;
+      transition: all 0.5s;
+      opacity: 0;
+      display: inline-block;
+      margin: 0 10px;
       &:hover {
         text-decoration: none;
       }
     }
     &.left {
-      transform: translateX(100%);
+      text-align: right;
+      .link-item {
+        transform: translateX(100%);
+      }
     }
     &.right {
-      transform: translateX(-100%);
+      text-align: left;
+      .link-item {
+        transform: translateX(-100%);
+      }
     }
     // transform: translateY(-100%);
   }
   &.active {
-    .link {
-      opacity: 1;
-      transform: translateY(0);
+    .links {
+      &.left,
+      &.right {
+        .link-item {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
     }
   }
 }
