@@ -4524,15 +4524,9 @@ html {
 
 .container,
 .container-fluid {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(64, 64, 64, 0.3);
   color: #cecece;
   transition: all 0.5s;
-  box-shadow: 0;
-}
-
-.container:hover {
-  transform: scale(1.02) translateY(-5px);
-  box-shadow: 5px 0 10px #0d1a25;
 }
 
 .seperator {

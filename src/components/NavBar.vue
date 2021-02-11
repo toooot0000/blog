@@ -167,8 +167,27 @@ export default {
       opacity: 0;
       display: inline-block;
       margin: 0 10px;
+      position: relative;
+
+      &::after{
+        visibility: visible;
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        border-radius: 999rem;
+        width: 0;
+        height: 2px;
+        transition: all .2s;
+      }
+
       &:hover {
         text-decoration: none;
+        &::after{
+          width: 70%;
+        }
       }
     }
     &.left {

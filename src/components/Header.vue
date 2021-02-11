@@ -1,25 +1,26 @@
 <template>
   <div class="wrp">
-    <NavBar :isActive="isAnimFinished"
+    <NavBar
+      :isActive="isAnimFinished"
       :leftList="[
         {
           text: title,
           url: '#',
-        }
+        },
       ]"
       :rightList="[
         {
           text: '主页',
-          url: '/main'
+          url: '/main',
         },
         {
           text: '关于',
-          url: '/about'
-        }
+          url: '/about',
+        },
       ]"
     ></NavBar>
     <div
-      class="ctn container"
+      class="header ctn container"
       :class="{
         finished: isAnimFinished,
       }"
@@ -30,12 +31,12 @@
           display: isAnimFinished ? 'none' : 'block',
         }"
       >
-        <div class="title">
+        <div class="title" id="header-title">
           {{ title }}
         </div>
-        <div class="seperator"></div>
-        <div class="desc">{{ desc }}</div>
-        <div class="link-list">
+        <div class="seperator" id="header-seperator"></div>
+        <div class="desc" id="header-desc">{{ desc }}</div>
+        <div class="link-list" id="header-link-list">
           <div class="link" v-for="(link, ind) of linkList" :key="ind">
             <a :href="link.href">
               <img
@@ -116,7 +117,7 @@ export default {
   mounted() {
     const that = this;
 
-    // * 绑定滚动动画
+    // 绑定滚动动画
     {
       let trigger = {
         trigger: ".wrp",
@@ -129,28 +130,38 @@ export default {
             window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
+          // that.banMouseScroll();
           that.firstScroll();
+        },
+        onLeave() {
+          // that.unbanMouseScroll();
         },
         onEnterBack() {
           if (that.animTimeOut) {
             window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
+          // that.unbanMouseScroll();
         },
       };
-      // 空动画，保证向上滚动的时候直接滚动到顶部
+      // 空动画，保证向上滚动到一定位置时的时候直接滚动到顶部
       gsap.to("#empty", {
         scrollTrigger: {
           trigger: ".wrp",
           start: 5,
-          end: window.innerHeight * 0.8,
+          end: 60,
           // markers: true,
           onEnterBack() {
+            // that.banMouseScroll();
             that.backTop();
+          },
+          onLeaveBack() {
+            // that.banMouseScroll();
           },
         },
       });
-      gsap.to(".ctn", {
+      // 主体形变动画
+      gsap.to(".header", {
         scrollTrigger: trigger,
         scale: 0.1,
         height: 100,
@@ -167,18 +178,26 @@ export default {
           }, 500);
         },
       });
-      gsap.to([".seperator", ".desc", ".title", ".link-list"], {
-        scrollTrigger: trigger,
-        duration: 0.2,
-        opacity: 0,
-        fontSize: "0.2rem",
-      });
+      gsap.to(
+        [
+          "#header-seperator",
+          "#header-desc",
+          "#header-title",
+          "#header-link-list",
+        ],
+        {
+          scrollTrigger: trigger,
+          duration: 0.2,
+          opacity: 0,
+          fontSize: "0.2rem",
+        }
+      );
     }
-    // * 监听滚动事件
+    // 监听滚动事件
     window.addEventListener("scroll", that.scrollEvent);
 
-    // * 初始化滚动吸附位置
-    this.firstScrollTarget = window.innerHeight * 0.95;
+    // 初始化滚动吸附位置
+    this.firstScrollTarget = 60; // window.innerHeight * 0.6;
   },
   destroyed() {
     const that = this;
@@ -208,17 +227,50 @@ export default {
       const that = this;
       if (that.scrollTop < that.firstScrollTarget) {
         let timer = setInterval(() => {
-          let spd = Math.min(
-            Math.abs(that.scrollTop - that.firstScrollTarget) / 5,
-            30
+          let spd = Math.max(
+            Math.min(Math.abs(that.scrollTop - that.firstScrollTarget) / 5, 30),
+            1
           );
           document.documentElement.scrollTop = document.body.scrollTop =
             that.scrollTop + spd;
-          if (that.scrollTop - that.firstScrollTarget >= -40) {
+          if (that.scrollTop - that.firstScrollTarget >= 0) {
             clearInterval(timer);
           }
         }, 16);
       }
+    },
+    banMouseScroll() {
+      //给页面绑定滑轮滚动事件
+      if (document.addEventListener) {
+        document.addEventListener(
+          "DOMMouseScroll",
+          this.mouseScrollListener,
+          false
+        );
+      }
+      //滚动滑轮触发scrollFunction方法
+      window.addEventListener("mousewheel", this.mouseScrollListener, {
+        passive: false,
+      });
+    },
+    unbanMouseScroll() {
+      //给页面绑定滑轮滚动事件
+      if (document.removeEventListener) {
+        document.removeEventListener(
+          "DOMMouseScroll",
+          this.mouseScrollListener,
+          false
+        );
+      }
+      //滚动滑轮触发scrollFunction方法
+      window.removeEventListener("mousewheel", this.mouseScrollListener, {
+        passive: false,
+      });
+    },
+    mouseScrollListener(e) {
+      // console.log('阻止滚动！')
+      e = e || window.event;
+      e.preventDefault && e.preventDefault(); //禁止浏览器默认事件
     },
   },
   watch: {
@@ -235,7 +287,7 @@ export default {
 .wrp {
   color: map-get($map: base.$colors, $key: "main");
   width: 100%;
-  height: 100vh;
+  // height: 100vh;
   z-index: 1000;
 }
 

@@ -17,18 +17,19 @@ html {
 // 统一容器类样式
 .container,
 .container-fluid {
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(64, 64, 64, 0.3);
 	color: map-get($map: $colors, $key: "main");
     transition: all .5s;
 	// box-shadow: 0px 0 10px map-get($map: $colors, $key: "shadow");
-	box-shadow: 0;
+	// box-shadow: none;
+	// transform: none;
 }
 
 // 容器类的鼠标悬浮样式
-.container:hover {
-	transform: scale(1.02) translateY(-5px);
-	box-shadow: 5px 0 10px map-get($map: $colors, $key: "shadow");
-}
+// .container:hover {
+// 	transform: scale(1.02) translateY(-5px);
+// 	box-shadow: 5px 0 10px map-get($map: $colors, $key: "shadow");
+// }
 
 // 通用的分界线类
 .seperator {
