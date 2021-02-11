@@ -22,6 +22,7 @@ module.exports = {
       .set("@imgs", path.resolve("public/img"))
       .set("@comps", path.resolve("src/components"))
       .set("@assets", path.resolve("src/assets"))
+      .set("@views", path.resolve("src/views"))
     .end();
     config.module.rule("eslint").use("eslint-loader");
   }

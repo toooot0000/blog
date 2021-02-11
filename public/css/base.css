@@ -4524,15 +4524,15 @@ html {
 
 .container,
 .container-fluid {
-  background-color: #182131;
+  background-color: rgba(0, 0, 0, 0.2);
   color: #cecece;
-  box-shadow: 0 2px 20px #f5f79126;
   transition: all 0.5s;
+  box-shadow: 0;
 }
 
 .container:hover {
-  box-shadow: 0 10px 15px #f5f79157;
   transform: scale(1.02) translateY(-5px);
+  box-shadow: 5px 0 10px #0d1a25;
 }
 
 .seperator {
@@ -4566,7 +4566,7 @@ html {
 }
 
 .text-shadow {
-  color: #f5f79126;
+  color: #0d1a25;
 }
 
 /*# sourceMappingURL=base.css.map */
