@@ -14,6 +14,15 @@ html {
     // color: map-get($map: $color, $key: 'main')
 }
 
+
+div, text, a, table, p{
+    font-weight: $font-weight-normal;
+}
+
+h1, h2, h3, h4{
+	font-weight: $font-weight-bold
+}
+
 // 统一容器类样式
 .container,
 .container-fluid {

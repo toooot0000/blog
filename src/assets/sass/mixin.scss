@@ -1,29 +1,29 @@
 // 混入
-
-// 引入rfs，bootstrap内部维护的Responsive prop value mixins. 
+@use './config.scss';
+// 引入rfs，bootstrap内部维护的Responsive prop value mixins.
 // 核心混入： rfs($value, $propName)
 @forward '../../../node_modules/rfs/scss.scss';
 
 @mixin seperator(
-	$thickness: 1px,
-	$length: 100px,
-	$bg:
-		linear-gradient(
-			to right,
-			#80808011,
-			rgba(179, 179, 179, 1) 20%,
-			white 50%,
-			rgba(179, 179, 179, 1) 80%,
-			#80808011
-		),
-	$dir: horizontal
+  $thickness: 1px,
+  $length: 100px,
+  $bg:
+    linear-gradient(
+      to right,
+      #80808011,
+      rgba(179, 179, 179, 1) 20%,
+      white 50%,
+      rgba(179, 179, 179, 1) 80%,
+      #80808011
+    ),
+  $dir: horizontal
 ) {
-	@if $dir==horizontal {
-		height: $thickness;
-		width: $length;
-	} @else {
-		height: $length;
-		width: $thickness;
-	}
-	background: $bg;
+  @if $dir==horizontal {
+    height: $thickness;
+    width: $length;
+  } @else {
+    height: $length;
+    width: $thickness;
+  }
+  background: $bg;
 }

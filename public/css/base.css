@@ -4522,6 +4522,14 @@ html {
   font-family: "Noto Sans SC", sans-serif;
 }
 
+div, text, a, table, p {
+  font-weight: 300;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 500;
+}
+
 .container,
 .container-fluid {
   background-color: rgba(64, 64, 64, 0.3);

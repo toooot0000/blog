@@ -24,7 +24,7 @@
       :class="{
         finished: isAnimFinished,
       }"
-      @click="backTop"
+      @click="headerBackTop"
     >
       <div
         :style="{
@@ -57,12 +57,7 @@
 </template>
 
 <script>
-// // 点击时返回顶部
-// // 调整滑动效果
-// // 顶部点状扩散效果
-// // 点击范围局限于圆点上
-// // 在上部一个范围内增加一个区域将背景部分绘制上去，作为导航栏的背景
-// // 滚动上去后在下方显示一个文字
+// TODO fix how to dispay properly after refresh.
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import NavBar from "./NavBar";
@@ -132,7 +127,7 @@ export default {
           }
           that.isAnimFinished = false;
           // that.banMouseScroll();
-          that.firstScroll();
+          that.forceScrollTo(that.firstScrollTarget);
         },
         onLeave() {
           // that.unbanMouseScroll();
@@ -198,7 +193,25 @@ export default {
     window.addEventListener("scroll", that.scrollEvent);
 
     // 初始化滚动吸附位置
-    this.firstScrollTarget =  150;
+    this.firstScrollTarget = 150;
+
+    // 看一下当前的滚动位置
+    this.scrollTop =
+      document.documentElement.scrollTop ||
+      window.pageYOffset ||
+      document.body.scrollTop;
+    if (this.scrollTop > 0) {
+      if (this.scrollTop < this.firstScrollTarget) {
+        // not at the top position
+        // move to this.firstScrollTarget
+        this.forceScrollTo(0);
+      } else {
+        // toggle isAnimFinished to true
+        setTimeout(() => {
+          this.isAnimFinished = true;
+        }, 300);
+      }
+    }
   },
   destroyed() {
     const that = this;
@@ -206,8 +219,8 @@ export default {
     window.removeEventListener("scroll", that.scrollEvent);
   },
   methods: {
-    backTop() {
-      this.forceScrollTo(0)
+    headerBackTop() {
+      if (this.isAnimFinished) this.forceScrollTo(0);
     },
     scrollEvent() {
       const that = this;
@@ -221,9 +234,6 @@ export default {
       setTimeout(() => {
         that.isScrolling = false;
       }, 300);
-    },
-    firstScroll() {
-      this.forceScrollTo(this.firstScrollTarget)
     },
     banMouseScroll() {
       //给页面绑定滑轮滚动事件
@@ -258,8 +268,7 @@ export default {
       e = e || window.event;
       e.preventDefault && e.preventDefault(); //禁止浏览器默认事件
     },
-    forceScrollTo(target, threshold = 5, minSpd=1, maxSpd=30){
-
+    forceScrollTo(target, threshold = 5, minSpd = 1, maxSpd = 30) {
       const that = this;
       if (Math.abs(that.scrollTop - target) > 0) {
         let timer = setInterval(() => {
@@ -267,15 +276,15 @@ export default {
             Math.min(Math.abs(that.scrollTop - target) / 5, maxSpd),
             minSpd
           );
-          let dir = Math.sign(target-that.scrollTop)
+          let dir = Math.sign(target - that.scrollTop);
           document.documentElement.scrollTop = document.body.scrollTop =
-            that.scrollTop + spd*dir;
+            that.scrollTop + spd * dir;
           if (Math.abs(that.scrollTop - target) <= threshold) {
             clearInterval(timer);
           }
         }, 16);
       }
-    }
+    },
   },
   watch: {
     isAnimFinished: function (nVal) {
@@ -346,12 +355,15 @@ export default {
 }
 
 .seperator {
-  margin: 25px 0;
+  margin: 25px auto;
+  max-width: base.$max-width;
 }
 
 .desc {
   @include base.margin-bottom(2rem);
   opacity: inherit;
+  max-width: base.$max-width;
+  margin: auto;
 }
 
 .title {

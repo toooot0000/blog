@@ -38,6 +38,7 @@ export default {
         scrub: 0.05,
       },
       y: "25vh",
+      opacity: 1,
       ease: "power1.out",
       stagger: 0.1,
     });
@@ -53,7 +54,7 @@ export default {
   min-height: 120vh;
 }
 .post-item{
-
   transform: translateY(100vh);
+  opacity: 0;
 }
 </style>
