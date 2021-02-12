@@ -5,8 +5,11 @@
       <PostItem class="post-item"></PostItem>
       <PostItem class="post-item"></PostItem>
       <PostItem class="post-item"></PostItem>
+      <PostItem class="post-item"></PostItem>
+      <PostItem class="post-item"></PostItem>
       <!-- <div class="block"></div> -->
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -15,12 +18,14 @@ import Header from "@comps/Header.vue";
 import gsap from "gsap";
 import scrollTrigger from "gsap/ScrollTrigger";
 import PostItem from "./PostItem";
+import Footer from "@comps/Footer.vue"
 gsap.registerPlugin(scrollTrigger);
 export default {
   name: "PageMain",
   components: {
     Header,
     PostItem,
+    Footer,
   },
   data: () => ({
     isHeaderAnimFinished: false,
@@ -51,7 +56,7 @@ export default {
   height: 2000px;
 }
 .content {
-  min-height: 120vh;
+  min-height: 100vh;
   margin-top: 200px;
 }
 .post-item {

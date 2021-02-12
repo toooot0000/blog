@@ -112,6 +112,16 @@ export default {
   },
   mounted() {
     const that = this;
+    // 监听滚动事件
+    window.addEventListener("scroll", that.scrollEvent);
+
+    // 初始化滚动吸附位置
+    this.firstScrollTarget = 150;
+    // 看一下当前的滚动位置
+    this.scrollTop =
+      document.documentElement.scrollTop ||
+      window.pageYOffset ||
+      document.body.scrollTop;
 
     // 绑定滚动动画
     {
@@ -126,18 +136,13 @@ export default {
             window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
-          // that.banMouseScroll();
           that.forceScrollTo(that.firstScrollTarget);
-        },
-        onLeave() {
-          // that.unbanMouseScroll();
         },
         onEnterBack() {
           if (that.animTimeOut) {
             window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
-          // that.unbanMouseScroll();
         },
       };
       // 滚动时主体形变动画
@@ -178,39 +183,13 @@ export default {
         scrollTrigger: {
           trigger: ".wrp",
           start: 5,
-          end: 60,
+          end: that.firstScrollTarget - 5,
           // markers: true,
           onEnterBack() {
             that.forceScrollTo(0);
           },
-          onLeaveBack() {
-            // that.banMouseScroll();
-          },
         },
       });
-    }
-    // 监听滚动事件
-    window.addEventListener("scroll", that.scrollEvent);
-
-    // 初始化滚动吸附位置
-    this.firstScrollTarget = 150;
-
-    // 看一下当前的滚动位置
-    this.scrollTop =
-      document.documentElement.scrollTop ||
-      window.pageYOffset ||
-      document.body.scrollTop;
-    if (this.scrollTop > 0) {
-      if (this.scrollTop < this.firstScrollTarget) {
-        // not at the top position
-        // move to this.firstScrollTarget
-        this.forceScrollTo(0);
-      } else {
-        // toggle isAnimFinished to true
-        setTimeout(() => {
-          this.isAnimFinished = true;
-        }, 300);
-      }
     }
   },
   destroyed() {
@@ -229,6 +208,7 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
+      console.log(that.scrollTop);
       // 更新isScrollEnd
       that.isScrolling = true;
       setTimeout(() => {

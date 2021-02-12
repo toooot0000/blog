@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-      
+      <div class="line auther">Copyright ©️ 叶汝楠 Jerry Ye </div>
   </div>
 </template>
 
@@ -10,6 +10,16 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+@use '@assets/sass/base.scss';
+  .footer{
+    padding: 2rem 1rem;
+    width: 100%;
+    .line{
+      display: block;
+      // margin: auto;
+      text-align: center;
+      color: base.$text-color-footer;
+    }
+  }
 </style>
