@@ -10,28 +10,51 @@
 @forward './mixin.scss';
 
 html {
-    font-family: "Noto Sans SC", sans-serif;
-    // color: map-get($map: $color, $key: 'main')
+  font-family: "Noto Sans SC", sans-serif;
+  // color: map-get($map: $color, $key: 'main')
+}
+
+div,
+text,
+a,
+table,
+p {
+  font-weight: $font-weight-normal;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: $font-weight-bold;
 }
 
 
-div, text, a, table, p{
-    font-weight: $font-weight-normal;
+a:link{
+  text-decoration: none;
 }
+a:visited{
+  text-decoration: none;
 
-h1, h2, h3, h4{
-	font-weight: $font-weight-bold
+}
+a:hover{
+  text-decoration: none;
+
+}
+a:active{
+  text-decoration: none;
+
 }
 
 // 统一容器类样式
 .container,
 .container-fluid {
-	background-color: rgba(64, 64, 64, 0.3);
-	color: map-get($map: $colors, $key: "main");
-    transition: all .5s;
-	// box-shadow: 0px 0 10px map-get($map: $colors, $key: "shadow");
-	// box-shadow: none;
-	// transform: none;
+  background-color: map-get($map: $colors, $key: "bg");
+  color: map-get($map: $colors, $key: "main");
+  transition: all 0.5s;
+  // box-shadow: 0px 0 10px map-get($map: $colors, $key: "shadow");
+  // box-shadow: none;
+  // transform: none;
 }
 
 // 容器类的鼠标悬浮样式
@@ -42,14 +65,18 @@ h1, h2, h3, h4{
 
 // 通用的分界线类
 .seperator {
-    @include mixin.seperator($thickness: 2px, $length: 100%, $dir:horizontal, 
-        $bg: #ffffff80);
+  @include mixin.seperator(
+    $thickness: 2px,
+    $length: 100%,
+    $dir: horizontal,
+    $bg: #ffffff80
+  );
 }
 
 // 通用文字颜色类
 // text-{main, sub, minor, warning, success}
 @each $type, $value in $colors {
-	.text-#{$type} {
-		color: $value;
-	}
+  .text-#{$type} {
+    color: $value;
+  }
 }

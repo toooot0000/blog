@@ -57,7 +57,7 @@
 </template>
 
 <script>
-// TODO fix how to dispay properly after refresh.
+// // fix how to dispay properly after refresh.
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import NavBar from "./NavBar";
@@ -360,10 +360,10 @@ export default {
 }
 
 .desc {
+  margin: auto;
   @include base.margin-bottom(2rem);
   opacity: inherit;
   max-width: base.$max-width;
-  margin: auto;
 }
 
 .title {

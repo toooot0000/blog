@@ -11,7 +11,7 @@ $colors: (
   "minor"  : #777777,
   "warning": #a10000,
   "success": #0011aa,
-  "bg"     : #182131,
+  "bg"     : rgba(64, 64, 64, 0.3),
   "shadow" : #0d1a25,
 );
 
@@ -34,4 +34,4 @@ $font-weight-normal : 300;
 $font-weight-lighter: 200;
 $font-weight-bold   : 500;
 
-$max-width: 640px;
+$max-width: 720px;

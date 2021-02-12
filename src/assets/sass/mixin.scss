@@ -27,3 +27,35 @@
   }
   background: $bg;
 }
+
+@mixin overflow-eclipsis($max-height: 1rem, $line-num: 2, $left-margin: 15px) {
+	$line-height: $max-height/$line-num;
+  // background: #099;
+  max-height: $max-height;
+  line-height: $line-height;
+  overflow: hidden;
+  position: relative;
+  &::before {
+    float: left;
+    content: "";
+    width: $left-margin;
+    height: $max-height;
+  }
+
+  & .text {
+    float: right;
+    width: 100%;
+    margin-left: -$left-margin;
+    word-break: break-all;
+  }
+  &::after {
+    float: right;
+    content: "...";
+    width: $left-margin;
+    height: $line-height;
+    position: relative;
+    left: 100%;
+    transform: translate(-100%, -100%);
+    // background: map-get($map: config.$colors, $key: 'bg');
+  }
+}

@@ -37,7 +37,7 @@ export default {
         // markers: true,
         scrub: 0.05,
       },
-      y: "25vh",
+      y: 0,
       opacity: 1,
       ease: "power1.out",
       stagger: 0.1,
@@ -52,8 +52,9 @@ export default {
 }
 .content {
   min-height: 120vh;
+  margin-top: 200px;
 }
-.post-item{
+.post-item {
   transform: translateY(100vh);
   opacity: 0;
 }
