@@ -2,7 +2,9 @@
   <div id="app">
     <Header v-model="isHeaderAnimFinished"></Header>
     <div class="content" id="content">
-      <PostItem></PostItem>
+      <PostItem class="post-item"></PostItem>
+      <PostItem class="post-item"></PostItem>
+      <PostItem class="post-item"></PostItem>
       <!-- <div class="block"></div> -->
     </div>
   </div>
@@ -26,7 +28,7 @@ export default {
   mounted() {
     // content的视差滚动动画
     // 其实就是滚动的时候Y轴滚动速度快一点就行
-    gsap.to("#content", {
+    gsap.to(".post-item", {
       scrollTrigger: {
         trigger: ".content",
         start: 20,
@@ -35,8 +37,9 @@ export default {
         // markers: true,
         scrub: 0.05,
       },
-      y: "20vh",
-      ease: "power1.out"
+      y: "25vh",
+      ease: "power1.out",
+      stagger: 0.1,
     });
   },
 };
@@ -47,7 +50,10 @@ export default {
   height: 2000px;
 }
 .content {
-  transform: translateY(100vh);
   min-height: 120vh;
+}
+.post-item{
+
+  transform: translateY(100vh);
 }
 </style>

@@ -1,25 +1,31 @@
 // 通用配置文件
+@use "./mixin.scss";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap");
 
 $text-color-main: #cecece;
 $text-color-sub : #aaaaaa;
-$colors         : (
-    "main"   : #cecece,
-    "sub"    : #aaaaaa,
-    "minor"  : #777777,
-    "warning": #a10000,
-    "success": #0011aa,
-    "bg"     : #182131,
-    "shadow" : #0d1a25,
+
+$colors: (
+  "main"   : #cecece,
+  "sub"    : #aaaaaa,
+  "minor"  : #777777,
+  "warning": #a10000,
+  "success": #0011aa,
+  "bg"     : #182131,
+  "shadow" : #0d1a25,
 );
 
-$layers:(
-    header : 1000,
-    content: 0,
-    bg     : -1000,
+$layers: (
+  header : 1000,
+  content: 0,
+  bg     : -1000,
 );
 
 $z-ind-header : 1000;
 $z-ind-content: 0;
 $z-ind-bg     : -1000;
 
+$font-size-main    : 1rem;
+$font-size-title   : 2rem;
+$font-size-subtitle: 1.8rem;
+$font-size-minor   : 0.8rem;

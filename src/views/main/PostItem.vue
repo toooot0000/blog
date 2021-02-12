@@ -24,7 +24,10 @@ export default {
       default: () => ({
         title: "我是博文标题",
         time: new Date(),
-        content: "我是博文内容！",
+        content:
+          "我是博文内容！我是博文内容！我是博文内容！我是博文内容！我是博文内容！我是博文内容！\
+          我是博文内容！我是博文内容！我是博文内容！我是博文内容！我是博文内容！我是博文内容！我是\
+          博文内容！我是博文内容！我是博文内容！",
       }),
     },
   },
@@ -35,5 +38,27 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+@use "@assets/sass/base.scss";
+.post-item {
+  @include base.padding(1rem);
+  margin: 1.2rem auto;
+  .upper {
+    // display: flex;
+    // justify-content: start;
+    // align-items: baseline;
+    // & > * {
+    //   display: inline-block;
+    // }
+    // margin-bottom: 0.3rem;
+  }
+  .title {
+    @include base.font-size(base.$font-size-title);
+  }
+  .time {
+    @include base.font-size(base.$font-size-minor);
+    // @include base.margin-left(1rem);
+    color: base.$text-color-sub;
+  }
+}
 </style>

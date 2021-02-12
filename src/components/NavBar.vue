@@ -1,5 +1,5 @@
 <template>
-  <div class="wrp">
+  <div class="nav-bar">
     <!-- 背景 -->
     <div
       class="cvs-ctn"
@@ -116,8 +116,9 @@ export default {
 
 <style lang="scss" scoped>
 @use "@assets/sass/base.scss";
-.wrp {
+.nav-bar {
   position: fixed;
+  top: 0;
   z-index: base.$z-ind-header - 1;
   width: 100%;
 }

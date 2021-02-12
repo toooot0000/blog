@@ -110,6 +110,7 @@ export default {
   data() {
     return {
       isAnimFinished: false,
+      isScrolling: false,
       animTimeOut: null,
       firstScrollTarget: 0,
     };
@@ -144,23 +145,7 @@ export default {
           // that.unbanMouseScroll();
         },
       };
-      // 空动画，保证向上滚动到一定位置时的时候直接滚动到顶部
-      gsap.to("#empty", {
-        scrollTrigger: {
-          trigger: ".wrp",
-          start: 5,
-          end: 60,
-          // markers: true,
-          onEnterBack() {
-            // that.banMouseScroll();
-            that.backTop();
-          },
-          onLeaveBack() {
-            // that.banMouseScroll();
-          },
-        },
-      });
-      // 主体形变动画
+      // 滚动时主体形变动画
       gsap.to(".header", {
         scrollTrigger: trigger,
         scale: 0.1,
@@ -192,12 +177,28 @@ export default {
           fontSize: "0.2rem",
         }
       );
+
+      // 空动画，在向上滚动到一定位置的时候直接滚动到第一屏
+      gsap.to("#empty", {
+        scrollTrigger: {
+          trigger: ".wrp",
+          start: 5,
+          end: 60,
+          // markers: true,
+          onEnterBack() {
+            that.forceScrollTo(0);
+          },
+          onLeaveBack() {
+            // that.banMouseScroll();
+          },
+        },
+      });
     }
     // 监听滚动事件
     window.addEventListener("scroll", that.scrollEvent);
 
     // 初始化滚动吸附位置
-    this.firstScrollTarget = 60; // window.innerHeight * 0.6;
+    this.firstScrollTarget =  150;
   },
   destroyed() {
     const that = this;
@@ -206,38 +207,23 @@ export default {
   },
   methods: {
     backTop() {
-      const that = this;
-      let timer = setInterval(() => {
-        let ispeed = Math.floor(-that.scrollTop / 5);
-        document.documentElement.scrollTop = document.body.scrollTop =
-          that.scrollTop + ispeed;
-        if (that.scrollTop === 0) {
-          clearInterval(timer);
-        }
-      }, 16);
+      this.forceScrollTo(0)
     },
     scrollEvent() {
       const that = this;
+      // 更新scrollTop
       that.scrollTop =
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
+      // 更新isScrollEnd
+      that.isScrolling = true;
+      setTimeout(() => {
+        that.isScrolling = false;
+      }, 300);
     },
     firstScroll() {
-      const that = this;
-      if (that.scrollTop < that.firstScrollTarget) {
-        let timer = setInterval(() => {
-          let spd = Math.max(
-            Math.min(Math.abs(that.scrollTop - that.firstScrollTarget) / 5, 30),
-            1
-          );
-          document.documentElement.scrollTop = document.body.scrollTop =
-            that.scrollTop + spd;
-          if (that.scrollTop - that.firstScrollTarget >= 0) {
-            clearInterval(timer);
-          }
-        }, 16);
-      }
+      this.forceScrollTo(this.firstScrollTarget)
     },
     banMouseScroll() {
       //给页面绑定滑轮滚动事件
@@ -272,6 +258,24 @@ export default {
       e = e || window.event;
       e.preventDefault && e.preventDefault(); //禁止浏览器默认事件
     },
+    forceScrollTo(target, threshold = 5, minSpd=1, maxSpd=30){
+
+      const that = this;
+      if (Math.abs(that.scrollTop - target) > 0) {
+        let timer = setInterval(() => {
+          let spd = Math.max(
+            Math.min(Math.abs(that.scrollTop - target) / 5, maxSpd),
+            minSpd
+          );
+          let dir = Math.sign(target-that.scrollTop)
+          document.documentElement.scrollTop = document.body.scrollTop =
+            that.scrollTop + spd*dir;
+          if (Math.abs(that.scrollTop - target) <= threshold) {
+            clearInterval(timer);
+          }
+        }, 16);
+      }
+    }
   },
   watch: {
     isAnimFinished: function (nVal) {
@@ -287,7 +291,6 @@ export default {
 .wrp {
   color: map-get($map: base.$colors, $key: "main");
   width: 100%;
-  // height: 100vh;
   z-index: 1000;
 }
 
