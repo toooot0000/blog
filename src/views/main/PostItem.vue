@@ -24,6 +24,9 @@
           </div>
         </div>
       </div>
+      <div class="bg">
+        <img src="" alt="" srcset="">
+      </div>
     </div>
   </div>
 </template>
@@ -54,13 +57,14 @@ export default {
 <style lang="scss" scoped>
 @use "@assets/sass/base.scss";
 .ctn {
-  @include base.padding(1rem);
+  @include base.padding(1.2rem);
   margin: 1.2rem auto;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: flex-start;
   max-width: 600px;
+  position: relative;
   .upper {
     display: flex;
     justify-content: start;
@@ -88,11 +92,13 @@ export default {
     @include base.font-size(base.$font-size-main);
     color: base.$text-color-minor;
     text-align: left;
-    margin-top: 0.3rem;
+    vertical-align: top;
+    // margin-top: 0.3rem;
   }
   .title {
     @include base.font-size(base.$font-size-title);
     color: base.$text-color-main;
+    font-weight: base.$font-weight-bold;
   }
   .seperator {
     @include base.margin-top(0.5rem);
@@ -101,9 +107,12 @@ export default {
   .content {
     width: 100%;
     @include base.overflow-eclipsis(
-      $max-height: 3rem,
-      $line-num: 2,
+      $max-height: 6rem,
+      $line-num: 4,
     )
+  }
+  .bg{
+    position: absolute;
   }
 }
 </style>
