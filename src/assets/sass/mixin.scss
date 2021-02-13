@@ -39,7 +39,7 @@
     float: left;
     content: "";
     width: $left-margin;
-    height: $max-height;
+    max-height: $max-height;
   }
 
   & .text {

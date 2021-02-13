@@ -57,7 +57,6 @@
 </template>
 
 <script>
-// // fix how to dispay properly after refresh.
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import NavBar from "./NavBar";

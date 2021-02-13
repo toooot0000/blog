@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <Header v-model="isHeaderAnimFinished"></Header>
-    <div class="content" id="content">
-      <PostItem class="post-item"></PostItem>
-      <PostItem class="post-item"></PostItem>
-      <PostItem class="post-item"></PostItem>
-      <PostItem class="post-item"></PostItem>
-      <PostItem class="post-item"></PostItem>
-      <!-- <div class="block"></div> -->
+    <div v-if="isLoading" class="loading"></div>
+    <div v-else class="content" id="content">
+      <PostItem
+        v-for="blog in blogList"
+        :key="blog.id"
+        :post="blog"
+      ></PostItem>
     </div>
     <Footer></Footer>
   </div>
@@ -18,8 +18,13 @@ import Header from "@comps/Header.vue";
 import gsap from "gsap";
 import scrollTrigger from "gsap/ScrollTrigger";
 import PostItem from "./PostItem";
-import Footer from "@comps/Footer.vue"
+import Footer from "@comps/Footer.vue";
+import Vue from "vue";
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies);
 gsap.registerPlugin(scrollTrigger);
+import "whatwg-fetch";
+
 export default {
   name: "PageMain",
   components: {
@@ -29,24 +34,55 @@ export default {
   },
   data: () => ({
     isHeaderAnimFinished: false,
+    isLoading: true,
+    blogList: [],
+    configList: [],
   }),
+  beforeMount() {
+    // read blogs/config.json
+    const that = this;
+    // get info.json 
+    let getBlogInfo = (config) => {
+        console.log(config);
+        that.configList = config.blogList;
+        let finishedNum = 0;
+        for (const page of that.configList) {
+          // console.log('page = '+page);
+          window
+            .fetch("blogs/" + page.path + "/info.json")
+            .then((r) => r.json())
+            .then((r)=>{
+              // console.log(r);
+              that.blogList.push({
+                id: page.id,
+                ...r
+              });
+              // console.log(that.blogList)
+              finishedNum++;
+              if(finishedNum == that.configList.length){
+                that.isLoading = false;
+                // console.log('Loading finished!');
+              }
+            })
+            .catch((e)=>{
+              console.log(e);
+            })
+        }
+      }
+    window
+      .fetch("blogs/config.json")
+      .then((r) => {
+        return r.json();
+      })
+      .then(getBlogInfo)
+      .catch((e) => {
+        console.log(e);
+      });
+  },
   mounted() {
+    console.log(this.blogList);
     // content的视差滚动动画
     // 其实就是滚动的时候Y轴滚动速度快一点就行
-    gsap.to(".post-item", {
-      scrollTrigger: {
-        trigger: ".content",
-        start: 20,
-        end: 150,
-        pin: false,
-        // markers: true,
-        scrub: 0.05,
-      },
-      y: 0,
-      opacity: 1,
-      ease: "power1.out",
-      stagger: 0.1,
-    });
   },
 };
 </script>

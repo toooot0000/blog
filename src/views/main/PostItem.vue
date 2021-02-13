@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container post-item">
     <div class="ctn">
       <div class="left">
         <div class="time">
-          {{ post.time.format("YYYY MM") }}
+          {{ post.timeDate.format("YYYY MM") }}
         </div>
         <div class="tags-list">
           <div class="tag">
@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="right">
-        <a class="title" href="#">
+        <a class="title" href="blog.html" @click="clickTitle">
           {{ post.title }}
         </a>
 
@@ -33,24 +33,61 @@
 
 <script>
 import addFormat from "@assets/js/dateAddFormat.js";
+import gsap from "gsap";
+import scrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(scrollTrigger);
+
 export default {
   props: {
     post: {
       type: Object,
       default: () => ({
         title: "我是博文标题",
-        time: new Date(),
+        time: "2000-01-01",
+        timeDate: new Date(),
         content:
           "我是博文内容！我是博文内容！我是博文内容！我是博文内容！我是博文内容！我是博文内容！\
           我是博文内容！我是博文内容！我是博文内容！我是博文内容！我是博文内容！我是博文内容！我是\
           博文内容！我是博文内容！我是博文内容！",
         tags: ["tag1", "tag2"],
+        id: 1,
+        
       }),
     },
   },
   beforeCreate() {
     addFormat();
   },
+  beforeMount(){
+    // console.log(this.$props);
+    let t = this.post.time.split("-").map(v=>parseInt(v));
+    // console.log(t);
+    this.post.timeDate = new Date(t[0], t[1], t[2]);
+  },
+  mounted(){
+
+    gsap.to(".post-item", {
+      scrollTrigger: {
+        trigger: ".content",
+        start: 20,
+        end: 150,
+        pin: false,
+        // markers: true,
+        scrub: 0.05,
+      },
+      y: 0,
+      opacity: 1,
+      ease: "power1.out",
+      stagger: 0.1,
+    });
+  },
+  methods:{
+    clickTitle(){
+      // let pageList = this.$$cookies.get('page_list')
+      // this.$cookies.set('curPage', this.post.id.toString(), -1)
+      window.localStorage.setItem("cur-page-path", this.post.path)
+    }
+  }
 };
 </script>
 
@@ -67,7 +104,7 @@ export default {
   position: relative;
   .upper {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: baseline;
     & > * {
       display: inline-block;
@@ -77,15 +114,15 @@ export default {
   .right {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
   .left {
     display: flex;
     height: 100%;
     flex-flow: column nowrap;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     @include base.margin-right(2.2rem);
   }
   .time {
