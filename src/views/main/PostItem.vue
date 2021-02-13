@@ -51,6 +51,7 @@ export default {
           博文内容！我是博文内容！我是博文内容！",
         tags: ["tag1", "tag2"],
         id: 1,
+        name: "",
         
       }),
     },
@@ -85,7 +86,7 @@ export default {
     clickTitle(){
       // let pageList = this.$$cookies.get('page_list')
       // this.$cookies.set('curPage', this.post.id.toString(), -1)
-      window.localStorage.setItem("cur-page-path", this.post.path)
+      window.localStorage.setItem("cur-page-path", this.post.name)
     }
   }
 };
@@ -121,7 +122,7 @@ export default {
     display: flex;
     height: 100%;
     flex-flow: column nowrap;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
     @include base.margin-right(2.2rem);
   }

@@ -58,6 +58,7 @@ export default {
               // console.log(r);
               that.blogList.push({
                 id: page.id,
+                name: page.name,
                 ...r
               });
               // console.log(that.blogList)

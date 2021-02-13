@@ -3,7 +3,7 @@ module.exports = {
     main: {
       entry: './src/views/main/main.js',
       template: './src/views/template.html',
-      filename: 'main.html',
+      filename: 'index.html',
       title: "主页",
     },
     blog: {
@@ -14,7 +14,7 @@ module.exports = {
     },
   },
   publicPath: process.env.NODE_ENV === "production" ? "././" : "/",
-  outputDir: "dist",
+  outputDir: "docs",
   chainWebpack: config => {
     const path = require("path");
     config.resolve.alias
