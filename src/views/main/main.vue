@@ -15,14 +15,17 @@
 
 <script>
 import Header from "@comps/Header.vue";
-import gsap from "gsap";
-import scrollTrigger from "gsap/ScrollTrigger";
 import PostItem from "./PostItem";
 import Footer from "@comps/Footer.vue";
+
+import gsap from "gsap";
+import scrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(scrollTrigger);
+
 import Vue from "vue";
 import VueCookies from "vue-cookies";
 Vue.use(VueCookies);
-gsap.registerPlugin(scrollTrigger);
+
 import "whatwg-fetch";
 
 export default {
