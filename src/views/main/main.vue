@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <Header v-model="isHeaderAnimFinished"></Header>
+    <Header v-model="isHeaderAnimFinished" 
+      title="Jerry Ye"
+      desc="这是Jerry Ye的个人网站。记录一些稀奇古怪的东西。"></Header>
     <div v-if="isLoading" class="loading"></div>
     <div v-else class="content" id="content">
       <PostItem
@@ -46,7 +48,7 @@ export default {
     const that = this;
     // get info.json 
     let getBlogInfo = (config) => {
-        console.log(config);
+        // console.log(config);
         that.configList = config.blogList;
         let finishedNum = 0;
         for (const page of that.configList) {
@@ -59,6 +61,7 @@ export default {
               that.blogList.push({
                 id: page.id,
                 name: page.name,
+                path: page.path,
                 ...r
               });
               // console.log(that.blogList)
@@ -92,9 +95,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block {
-  height: 2000px;
-}
 .content {
   min-height: 100vh;
   margin-top: 200px;

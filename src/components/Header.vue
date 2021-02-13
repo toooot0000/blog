@@ -178,11 +178,11 @@ export default {
       );
 
       // 空动画，在向上滚动到一定位置的时候直接滚动到第一屏
-      gsap.to("#empty", {
+      gsap.to(".wrp", {
         scrollTrigger: {
           trigger: ".wrp",
           start: 5,
-          end: that.firstScrollTarget - 20,
+          end: that.firstScrollTarget - 30,
           // markers: true,
           onEnterBack() {
             that.forceScrollTo(0);

@@ -19,20 +19,19 @@
         <div class="seperator"></div>
         <div class="content">
           <div class="text">
-          {{ post.content }}
-
+            {{ post.content }}
           </div>
         </div>
       </div>
       <div class="bg">
-        <img src="" alt="" srcset="">
+        <img src="" alt="" srcset="" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import "@assets/js/dateAddFormat.js"
+import "@assets/js/dateAddFormat.js";
 import gsap from "gsap";
 import scrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(scrollTrigger);
@@ -52,18 +51,17 @@ export default {
         tags: ["tag1", "tag2"],
         id: 1,
         name: "",
-        
+        path: "",
       }),
     },
   },
-  beforeMount(){
+  beforeMount() {
     // console.log(this.$props);
-    let t = this.post.time.split("-").map(v=>parseInt(v));
+    let t = this.post.time.split("-").map((v) => parseInt(v));
     // console.log(t);
     this.post.timeDate = new Date(t[0], t[1], t[2]);
   },
-  mounted(){
-
+  mounted() {
     gsap.to(".post-item", {
       scrollTrigger: {
         trigger: ".content",
@@ -79,13 +77,16 @@ export default {
       stagger: 0.1,
     });
   },
-  methods:{
-    clickTitle(){
+  methods: {
+    clickTitle() {
       // let pageList = this.$$cookies.get('page_list')
       // this.$cookies.set('curPage', this.post.id.toString(), -1)
-      window.localStorage.setItem("cur-page-path", this.post.name)
-    }
-  }
+      window.localStorage.setItem(
+        "cur-page-path",
+        this.post.path + "/" + this.post.name
+      );
+    },
+  },
 };
 </script>
 
@@ -141,12 +142,9 @@ export default {
   }
   .content {
     width: 100%;
-    @include base.overflow-eclipsis(
-      $max-height: 6rem,
-      $line-num: 4,
-    )
+    @include base.overflow-eclipsis($max-height: 6rem, $line-num: 4);
   }
-  .bg{
+  .bg {
     position: absolute;
   }
 }

@@ -1,15 +1,16 @@
 <template>
   <div id="app">
-    <Header v-model="isHeaderAnimFinished"></Header>
+    <Header v-model="isHeaderAnimFinished" :title="title" :desc="desc"></Header>
     <div class="content" id="content">
       <!-- <div class="block"></div> -->
-      <BlogContainer></BlogContainer>
+      <BlogContainer :md="md"></BlogContainer>
     </div>
     <Footer></Footer>
   </div>
 </template>
 
 <script>
+// TODO add a loading wheel
 // 组件
 import Header from "@comps/Header.vue";
 import Footer from "@comps/Footer.vue";
@@ -25,6 +26,8 @@ import Vue from "vue";
 import VueCookies from "vue-cookies";
 Vue.use(VueCookies);
 
+import "whatwg-fetch";
+
 export default {
   name: "PageMain",
   components: {
@@ -34,20 +37,44 @@ export default {
   },
   data: () => ({
     isHeaderAnimFinished: false,
+    blogPath            : null,
+    title               : "1",
+    desc                : "2",
+    md                  : "",
+    isLoading           : "",
   }),
   mounted() {
     // content的视差滚动动画
     // 其实就是滚动的时候Y轴滚动速度快一点就行
-    
   },
+  beforeMount() {
+    this.blogPath = window.localStorage.getItem("cur-page-path");
 
+    if (this.blogPath) {
+      // fetch .md
+      window
+        .fetch("/blogs/" + this.blogPath + ".md")
+        .then((r) => r.text())
+        .then((md) => {
+          console.log(md);
+          this.md = md;
+        });
+      // fetch info.json
+      let infoPath = "/blogs/" + this.blogPath.split("/")[0] + "/info.json";
+      console.log(infoPath);
+      window
+        .fetch(infoPath)
+        .then((r) => r.json())
+        .then((info) => {
+          this.title = info.title
+          this.desc = info.content
+        });
+    }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.block {
-  height: 2000px;
-}
 .content {
   min-height: 100vh;
   margin-top: 200px;
