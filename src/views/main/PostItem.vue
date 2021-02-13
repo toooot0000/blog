@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import addFormat from "@assets/js/dateAddFormat.js";
+import "@assets/js/dateAddFormat.js"
 import gsap from "gsap";
 import scrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(scrollTrigger);
@@ -55,9 +55,6 @@ export default {
         
       }),
     },
-  },
-  beforeCreate() {
-    addFormat();
   },
   beforeMount(){
     // console.log(this.$props);

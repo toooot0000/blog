@@ -182,7 +182,7 @@ export default {
         scrollTrigger: {
           trigger: ".wrp",
           start: 5,
-          end: that.firstScrollTarget - 5,
+          end: that.firstScrollTarget - 20,
           // markers: true,
           onEnterBack() {
             that.forceScrollTo(0);

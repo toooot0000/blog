@@ -52,7 +52,7 @@ export default {
         for (const page of that.configList) {
           // console.log('page = '+page);
           window
-            .fetch("blogs/" + page.path + "/info.json")
+            .fetch("/blogs/" + page.path + "/info.json")
             .then((r) => r.json())
             .then((r)=>{
               // console.log(r);
@@ -74,7 +74,7 @@ export default {
         }
       }
     window
-      .fetch("blogs/config.json")
+      .fetch("/blogs/config.json")
       .then((r) => {
         return r.json();
       })
