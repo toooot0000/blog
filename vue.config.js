@@ -8,8 +8,8 @@ module.exports = {
     },
     blog: {
       entry: './src/views/blog/blog.js',
-      template: './src/views/template.html',
-      filename: 'blog.html',
+      template: './src/views/blog/template.html',
+      filename: 'blogTemplate.html',
       title: 'Jerry Ye`s Blog',
     },
   },

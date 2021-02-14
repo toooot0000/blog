@@ -37,39 +37,39 @@ export default {
   },
   data: () => ({
     isHeaderAnimFinished: false,
-    blogPath            : null,
-    title               : "1",
-    desc                : "2",
-    md                  : "",
-    isLoading           : "",
+    blogPath: null,
+    title: "1",
+    desc: "2",
+    md: "",
+    isLoading: "",
   }),
-  mounted() {
-    // content的视差滚动动画
-    // 其实就是滚动的时候Y轴滚动速度快一点就行
-  },
-  beforeMount() {
-    this.blogPath = window.localStorage.getItem("cur-page-path");
+  beforeMount() {},
+  methods: {
+    getBlogContent() {
+      // fetch the blog content
+      this.blogPath = window.localStorage.getItem("cur-page-path");
 
-    if (this.blogPath) {
-      // fetch .md
-      window
-        .fetch("/blogs/" + this.blogPath + ".md")
-        .then((r) => r.text())
-        .then((md) => {
-          console.log(md);
-          this.md = md;
-        });
-      // fetch info.json
-      let infoPath = "/blogs/" + this.blogPath.split("/")[0] + "/info.json";
-      console.log(infoPath);
-      window
-        .fetch(infoPath)
-        .then((r) => r.json())
-        .then((info) => {
-          this.title = info.title
-          this.desc = info.content
-        });
-    }
+      if (this.blogPath) {
+        // fetch .md
+        window
+          .fetch("/blogs/" + this.blogPath + ".md")
+          .then((r) => r.text())
+          .then((md) => {
+            console.log(md);
+            this.md = md;
+          });
+        // fetch info.json
+        let infoPath = "/blogs/" + this.blogPath.split("/")[0] + "/info.json";
+        console.log(infoPath);
+        window
+          .fetch(infoPath)
+          .then((r) => r.json())
+          .then((info) => {
+            this.title = info.title;
+            this.desc = info.content;
+          });
+      }
+    },
   },
 };
 </script>

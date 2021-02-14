@@ -1,15 +1,17 @@
 {
-  "blogList": [
+  "templatePath": "docs/blogTemplate.html",
+  "basePath"    : "blogs",
+  "buildPath"   : "docs/blogs",
+  "blogList"    : [
     {
-      "id"     : 1,
-      "name"   : "test",
-      "path"   : "test"
+      "id"        : 1,
+      "name"      : "test",
+      "folderPath": "test"
     },
-
     {
-        "id"     : 2,
-        "name"   : "test",
-        "path"   : "test2"
-      }
+      "id"        : 2,
+      "name"      : "test",
+      "folderPath": "test2"
+    }
   ]
 }
