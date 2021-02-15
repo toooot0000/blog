@@ -116,10 +116,8 @@ def entry(app):
         # change all path to /docs/js /docs/css /docs/img
         prefix = ''
         if not isForDev:
-            prefix = '/docs'
+            prefix = ''
         template = re.sub(r'\./(?P<type>js|css|img)', prefix+'/\g<type>', templateFile.read())
-        # template = re.sub(r'\./css', prefix+'/css', template)
-        # template = re.sub(r'\./img', prefix+'/img', template)
         templateFile.close()
         print('Replace template...')
 
