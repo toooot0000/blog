@@ -1,17 +1,15 @@
 <template>
   <div id="app">
-    <Header v-model="isHeaderAnimFinished" 
+    <Header
+      v-model="isHeaderAnimFinished"
       title="Jerry Ye"
-      desc="这是Jerry Ye的个人网站。记录一些稀奇古怪的东西。"></Header>
+      desc="这是Jerry Ye的个人网站。记录一些稀奇古怪的东西。"
+    ></Header>
     <div v-if="isLoading" class="loading"></div>
     <div v-else class="content" id="content">
-      <PostItem
-        v-for="blog in blogList"
-        :key="blog.id"
-        :post="blog"
-      ></PostItem>
+      <PostItem v-for="blog in blogList" :key="blog.id" :post="blog"></PostItem>
     </div>
-    <Footer></Footer>
+    <Footer v-if='!isLoading'></Footer>
   </div>
 </template>
 
@@ -40,14 +38,50 @@ export default {
   data: () => ({
     isHeaderAnimFinished: false,
     isLoading: true,
-    blogList: [],
+    blogList: [
+      {
+        id: 1,
+        name: "name",
+        path: "path",
+      },
+    ],
     configList: [],
   }),
   beforeMount() {
     // read blogs/config.json
     const that = this;
-    // get info.json 
-    let getBlogInfo = (config) => {
+    // get configList
+
+    Promise.any([
+      // window.fetch("blogs/config.json"),
+      window.fetch("blogs/config.json"),
+    ])
+      .then((r) => {
+        // console.log(r.json());
+        // r.text().then(data=>console.log(data));
+        return r.json();
+      })
+      .then((configList) => {
+        that.blogList = configList;
+        that.isLoading = false;
+      })
+      .catch((e) => {
+        console.log("Sth went wrong!");
+        console.log(e);
+        // try use the dev Path
+        window.fetch("/blogs/config");
+      });
+
+  },
+  mounted() {
+    // console.log(this.blogList);
+  },
+  methods: {
+    updateBlogList() {
+      // read blogs/config.json
+      const that = this;
+      // get info.json
+      let getBlogInfo = (config) => {
         // console.log(config);
         that.configList = config.blogList;
         let finishedNum = 0;
@@ -56,40 +90,36 @@ export default {
           window
             .fetch("/blogs/" + page.path + "/info.json")
             .then((r) => r.json())
-            .then((r)=>{
+            .then((r) => {
               // console.log(r);
               that.blogList.push({
                 id: page.id,
                 name: page.name,
                 path: page.path,
-                ...r
+                ...r,
               });
               // console.log(that.blogList)
               finishedNum++;
-              if(finishedNum == that.configList.length){
+              if (finishedNum == that.configList.length) {
                 that.isLoading = false;
                 // console.log('Loading finished!');
               }
             })
-            .catch((e)=>{
+            .catch((e) => {
               console.log(e);
-            })
+            });
         }
-      }
-    window
-      .fetch("/blogs/config.json")
-      .then((r) => {
-        return r.json();
-      })
-      .then(getBlogInfo)
-      .catch((e) => {
-        console.log(e);
-      });
-  },
-  mounted() {
-    console.log(this.blogList);
-    // content的视差滚动动画
-    // 其实就是滚动的时候Y轴滚动速度快一点就行
+      };
+      window
+        .fetch("/blogs/config.json")
+        .then((r) => {
+          return r.json();
+        })
+        .then(getBlogInfo)
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
 };
 </script>

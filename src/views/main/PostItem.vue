@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="right">
-        <a class="title" href="blog.html" @click="clickTitle">
+        <a class="title" :href="post.path" @click="clickTitle">
           {{ post.title }}
         </a>
 
@@ -115,6 +115,7 @@ export default {
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: flex-start;
+    flex-grow: 1;
   }
   .left {
     display: flex;
@@ -122,6 +123,7 @@ export default {
     flex-flow: column nowrap;
     justify-content: center;
     align-items: flex-start;
+    width: 45px;
     @include base.margin-right(2.2rem);
   }
   .time {

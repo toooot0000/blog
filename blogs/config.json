@@ -1,1 +1,11 @@
-{"templatePath": "docs/blogTemplate.html", "basePath": "blogs", "buildPath": "docs/blogs", "curId": 4, "blogList": [{"id": 1, "name": "test", "folderPath": "test"}, {"id": 2, "name": "test", "folderPath": "test2"}, {"id": 4, "name": "test3", "folderPath": "test3"}]}
+{
+  "templatePath": "docs/blogTemplate.html",
+  "basePath": "blogs",
+  "buildPath": "docs/blogs",
+  "curId": 4,
+  "blogList": [
+    { "id": 1, "name": "test", "folderPath": "test" },
+    { "id": 2, "name": "test", "folderPath": "test2" },
+    { "id": 4, "name": "test3", "folderPath": "test3" }
+  ]
+}

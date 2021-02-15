@@ -1,3 +1,4 @@
+const path = require("path");
 module.exports = {
   pages: {
     main: {
@@ -25,5 +26,10 @@ module.exports = {
       .set("@views", path.resolve("src/views"))
     .end();
     config.module.rule("eslint").use("eslint-loader");
-  }
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'docs'),
+    compress: true,
+    port: 9000,
+  },
 };

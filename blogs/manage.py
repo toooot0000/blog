@@ -24,7 +24,8 @@ templatePath = (projPath / config['templatePath']).resolve()
 print('Template Path        : ' + str(templatePath))
 
 # the template reg
-subPattern = r"\[\[content\]\]"
+subPattern = r"\[\[(.*?)\]\]"
+
 
 # pic formats
 picFormats = ['.ico', '.png', '.jpg', '.gif']
@@ -48,10 +49,10 @@ def entry(app):
             print(
                 'You already have a blog of the same name! \nPlease consider changing the name!')
             return
-        title   = input('Blog title: ')
+        title = input('Blog title: ')
         content = input("Blog desc: ")
-        time    = strftime("%Y-%m-%d", gmtime())
-        tags    = []
+        time = strftime("%Y-%m-%d", gmtime())
+        tags = []
         headPic = "/"
         # create the folder name/
         (basePath/name).mkdir()
@@ -111,11 +112,20 @@ def entry(app):
         except:
             print('Sth wrong with template!')
             assert(False)
+        
         # change all path to /docs/js /docs/css /docs/img
-        template = re.sub(r'\./js', '/docs/js', templateFile.read())
-        template = re.sub(r'\./css', '/docs/css', template)
-        template = re.sub(r'\./img', '/docs/img', template)
+        template = re.sub(r'\./js', '/js', templateFile.read())
+        template = re.sub(r'\./css', '/css', template)
+        template = re.sub(r'\./img', '/img', template)
         templateFile.close()
+        print('Replace template...')
+
+        # convert config into build mode
+        if(not buildFolderPath.exists()):
+            buildFolderPath.mkdir()
+
+        buildConfigFile = (buildFolderPath/'config.json').open('w')
+        buildConfig = []
 
         # loop blogList
         for blog in config['blogList']:
@@ -131,12 +141,25 @@ def entry(app):
 
             # TODO if blog is not modified, continue
 
+            blogInfo = {}
+
+            # add to buildConfig
+            with (blogFolderPath/'info.json').open() as blogInfoFile:
+                # prepare blogInfo
+                blogInfo = json.loads(blogInfoFile.read())
+                blogInfo['id'] = blog['id']
+                # blogPath, used in the main page to update the blog list
+                blogInfo['path'] = 'blogs/' + blog['folderPath']
+
+                # append blogInfo to buildConfig
+                buildConfig.append(blogInfo)
+
             # use markdown2 to read the md file and convert it to html
             try:
                 blogHtml = markdown2.markdown_path(str(blogPath))
             # print(blogHtml)
             except:
-                Warning('Config contains a missing blog!\nName: '+blog['name'] )
+                Warning('Config contains a missing blog!\nName: '+blog['name'])
                 continue
 
             blogBuildFolderPath = buildFolderPath/blog['folderPath']
@@ -146,9 +169,23 @@ def entry(app):
             # print(blogBuildPath)
 
             # substitude '[[content]]' part in the template for the blog html
-            subedHtml = re.sub(subPattern, blogHtml, template)
+            varDict = {
+                'content': blogHtml,
+                'title': blogInfo['title'],
+                'desc': blogInfo['content'],
+            }
 
-            # save processed html as blog.html
+            def rep(matchObj):
+                _str = matchObj.group(1)
+                print(_str)
+                if _str in varDict.keys():
+                    return varDict[_str]
+                else:
+                    return ""
+
+            subedHtml = re.sub(subPattern, rep, template)
+
+            # save processed html as blogFolder/index.html
             if not blogBuildFolderPath.exists():
                 # make the directory
                 blogBuildFolderPath.mkdir(parents=True)
@@ -162,7 +199,11 @@ def entry(app):
                 if(filePath.suffix in picFormats):
                     targetPath = blogBuildFolderPath/filePath.name
                     copy(str(filePath), str(targetPath))
+
             pass
+        # write buildConfig in buildFolder
+        buildConfigFile.write(json.dumps(buildConfig))
+
         print('Update completed!')
         pass
 

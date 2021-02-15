@@ -43,7 +43,13 @@ export default {
     md: "",
     isLoading: "",
   }),
-  beforeMount() {},
+  
+  beforeMount() {
+    this.title = document.getElementById('blog-title').innerText;
+    console.log(this.title);
+    this.desc = document.getElementById('blog-desc').innerText;
+    console.log(this.desc);
+  },
   methods: {
     getBlogContent() {
       // fetch the blog content
