@@ -11,11 +11,11 @@
       :rightList="[
         {
           text: '主页',
-          url: '/main',
+          url: '/blog',
         },
         {
           text: '关于',
-          url: '/about',
+          url: '/blog/about',
         },
       ]"
     ></NavBar>
