@@ -46,9 +46,11 @@ export default {
   
   beforeMount() {
     this.title = document.getElementById('blog-title').innerText;
-    console.log(this.title);
+    document.getElementById('blog-desc').remove()
+    // console.log(this.title);
     this.desc = document.getElementById('blog-desc').innerText;
-    console.log(this.desc);
+    document.getElementById('blog-desc').remove()
+    // console.log(this.desc);
   },
   methods: {
     getBlogContent() {
