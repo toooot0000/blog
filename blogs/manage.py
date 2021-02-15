@@ -65,10 +65,10 @@ def entry(app):
         # add info file
         with (basePath/name/'info.json').open('w') as infoFile:
             info = {
-                "title": title,
-                "content": content,
-                "time": time,
-                "tags": tags,
+                "title"   : title,
+                "content" : content,
+                "time"    : time,
+                "tags"    : tags,
                 "head-pic": headPic
             }
             infoFile.write(json.dumps(info))
@@ -82,8 +82,8 @@ def entry(app):
         # print(config['blogList'])
         config['blogList'].append(
             {
-                'id': _id,
-                'name': name,
+                'id'        : _id,
+                'name'      : name,
                 'folderPath': name,
             }
         )
