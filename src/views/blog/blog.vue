@@ -43,42 +43,16 @@ export default {
     md: "",
     isLoading: "",
   }),
-  
+
   beforeMount() {
-    this.title = document.getElementById('blog-title').innerText;
-    document.getElementById('blog-desc').remove()
+    this.title = document.getElementById("blog-title").innerText;
+    document.getElementById("blog-title").remove();
     // console.log(this.title);
-    this.desc = document.getElementById('blog-desc').innerText;
-    document.getElementById('blog-desc').remove()
+    this.desc = document.getElementById("blog-desc").innerText;
+    document.getElementById("blog-desc").remove();
     // console.log(this.desc);
   },
-  methods: {
-    getBlogContent() {
-      // fetch the blog content
-      this.blogPath = window.localStorage.getItem("cur-page-path");
-
-      if (this.blogPath) {
-        // fetch .md
-        window
-          .fetch("/blogs/" + this.blogPath + ".md")
-          .then((r) => r.text())
-          .then((md) => {
-            console.log(md);
-            this.md = md;
-          });
-        // fetch info.json
-        let infoPath = "/blogs/" + this.blogPath.split("/")[0] + "/info.json";
-        console.log(infoPath);
-        window
-          .fetch(infoPath)
-          .then((r) => r.json())
-          .then((info) => {
-            this.title = info.title;
-            this.desc = info.content;
-          });
-      }
-    },
-  },
+  methods: {},
 };
 </script>
 
