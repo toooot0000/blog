@@ -8,16 +8,7 @@
           url: '#',
         },
       ]"
-      :rightList="[
-        {
-          text: '主页',
-          url: '/blog',
-        },
-        {
-          text: '关于',
-          url: '/blog/about',
-        },
-      ]"
+      :rightList="navRightList"
     ></NavBar>
     <div
       class="header ctn container"
@@ -107,7 +98,28 @@ export default {
       isScrolling: false,
       animTimeOut: null,
       firstScrollTarget: 0,
+
+      navRightList: [
+        {
+          text: "主页",
+          url: "/blog",
+        },
+        {
+          text: "关于",
+          url: "/blog/about",
+        },
+      ],
     };
+  },
+  beforeMount(){
+    let location = document.location
+    let urlBase = "/"
+    if(location.hostname != "localhost"){
+      urlBase = "/blog"
+    }
+    // main page
+    this.navRightList[0].url = urlBase
+    this.navRightList[1].url = urlBase + '/base'
   },
   mounted() {
     const that = this;

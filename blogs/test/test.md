@@ -9,3 +9,7 @@ This is a paragraph, **This is bold**,
 
 > [!TIP]
 > This is tips.
+
+![pic](favicon.ico)
+
+[This is a link](http://www.baidu.com)
