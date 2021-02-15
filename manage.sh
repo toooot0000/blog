@@ -8,8 +8,8 @@ fi
 read -p "What message:" msg
 if [ -z ${msg}]
 then
-    msg="\"This is a automatic submit~\""
+    msg="This is an automatic submit~"
 fi
 
-
-npm run build&&python blogs/manage.py -u&&git pull origin ${name}&&git add .&&git commit -m ${msg}&&git push
+# git commit -m " ${msg} "
+npm run build&&python blogs/manage.py -u&&git pull origin ${name}&&git add .&&git commit -m " ${msg} "&&git push
