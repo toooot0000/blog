@@ -104,7 +104,7 @@ def entry(app):
         print('This is func. init! Copy!')
         pass
 
-    def update():
+    def update(isForDev):
         print('Update')
         # get the template file
         try:
@@ -114,9 +114,12 @@ def entry(app):
             assert(False)
         
         # change all path to /docs/js /docs/css /docs/img
-        template = re.sub(r'\./js', '/js', templateFile.read())
-        template = re.sub(r'\./css', '/css', template)
-        template = re.sub(r'\./img', '/img', template)
+        prefix = ''
+        if not isForDev:
+            prefix = '/docs'
+        template = re.sub(r'\./js', prefix+'/js', templateFile.read())
+        template = re.sub(r'\./css', prefix+'/css', template)
+        template = re.sub(r'\./img', prefix+'/img', template)
         templateFile.close()
         print('Replace template...')
 
@@ -216,7 +219,7 @@ def entry(app):
     if app.params.init:
         init()
     if app.params.update:
-        update()
+        update(app.params.dev)
 
 
 # entry.add_param("test", help="Test the basic function.")
@@ -228,6 +231,8 @@ entry.add_param(
     "-i", "--init", help="initialize the config.json", action='store_true', required=False)
 entry.add_param(
     "-u", "--update", help="update the config.json", action='store_true', required=False)
+entry.add_param(
+    "-d", "--dev", help="for development or production", action='store_true', required=False)
 
 if __name__ == "__main__":
     entry.run()
