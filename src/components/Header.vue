@@ -154,7 +154,8 @@ export default {
             window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
-          if (!that.$isMobile()) that.forceScrollTo(that.firstScrollTarget);
+          // if (!that.$isMobile()) 
+          that.forceScrollTo(that.firstScrollTarget);
         },
         onEnterBack() {
           if (that.animTimeOut) {
@@ -204,7 +205,8 @@ export default {
           end: that.firstScrollTarget - 30,
           // markers: true,
           onEnterBack() {
-            if (!that.$isMobile()) that.forceScrollTo(0);
+            // if (!that.$isMobile()) 
+            that.forceScrollTo(0);
           },
         },
       });
