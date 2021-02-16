@@ -71,26 +71,6 @@ export default {
       default:
         "我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述",
     },
-    linkList: {
-      type: Array,
-      default: () => {
-        return [
-          {
-            href: "#",
-            picPath: "",
-          },
-          {
-            href: "#",
-            picPath: "",
-          },
-
-          {
-            href: "#",
-            picPath: "",
-          },
-        ];
-      },
-    },
   },
   data() {
     return {
@@ -109,17 +89,38 @@ export default {
           url: "/blog/about",
         },
       ],
+      linkList: [
+        {
+          // github
+          href: "https://github.com/toooot0000",
+          picPath: "",
+        },
+        {
+          // email
+          href: "mailto:runan.ye@outlook.com",
+          picPath: "",
+        },
+      ],
     };
   },
-  beforeMount(){
-    let location = document.location
-    let urlBase = "/"
-    if(location.hostname != "localhost"){
-      urlBase = "/blog"
+  beforeMount() {
+    let location = document.location;
+    let urlBase = "/";
+    if (location.hostname != "localhost") {
+      urlBase = "/blog/";
     }
     // main page
-    this.navRightList[0].url = urlBase
-    this.navRightList[1].url = urlBase + '/base'
+    this.navRightList[0].url = urlBase;
+    this.navRightList[1].url = urlBase + "about.html";
+
+    // github
+    this.linkList[0].picPath =
+      (this.$isDev() ? "/img/" : "blog/") +
+      "header/GitHub-Mark-Light-120px-plus.png";
+    // email
+    this.linkList[1].picPath =
+      (this.$isDev() ? "/img/" : "blog/") +
+      "header/email3.png";
   },
   mounted() {
     const that = this;

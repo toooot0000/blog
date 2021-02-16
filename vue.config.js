@@ -13,6 +13,12 @@ module.exports = {
       filename: 'blogTemplate.html',
       title: 'Jerry Ye`s Blog',
     },
+    about: {
+      entry: './src/views/about/about.js',
+      template: './src/views/template.html',
+      filename: 'about.html',
+      title: 'About Jerry Ye',
+    },
   },
   publicPath: process.env.NODE_ENV === "production" ? "././" : "/",
   outputDir: "docs",

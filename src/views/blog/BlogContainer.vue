@@ -1,5 +1,6 @@
 <template>
-  <div class="container blog-container" id="blog-container">
+  <div class="container blog-container">
+    <div class="wrp" id="blog-container"></div>
     <!-- <div class="blog-content" v-html="html"></div> -->
   </div>
 </template>
@@ -42,14 +43,6 @@ export default {
     let blogContent = document.getElementById("blog-content");
     document.getElementById("blog-container").appendChild(blogContent);
   },
-  // watch: {
-  //   md: function (nV) {
-  //     let showdown = require("showdown");
-  //     let converter = new showdown.Converter();
-  //     this.html = converter.makeHtml(nV);
-  //     console.log(this.html);
-  //   },
-  // },
 };
 </script>
 
@@ -58,6 +51,10 @@ export default {
 .blog-container {
   transform: translateY(100vh);
   opacity: 0;
+  .wrp {
+    max-width: base.$max-width;
+    margin: auto;
+  }
   @include base.padding(1.2rem);
   .blog-content {
     max-width: base.$max-width;

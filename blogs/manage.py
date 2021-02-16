@@ -65,10 +65,10 @@ def entry(app):
         # add info file
         with (basePath/name/'info.json').open('w') as infoFile:
             info = {
-                "title"   : title,
-                "content" : content,
-                "time"    : time,
-                "tags"    : tags,
+                "title": title,
+                "content": content,
+                "time": time,
+                "tags": tags,
                 "head-pic": headPic
             }
             infoFile.write(json.dumps(info))
@@ -80,12 +80,11 @@ def entry(app):
         _id = config['curId']
         print('Current Id: '+str(config['curId']))
         # print(config['blogList'])
-        config['blogList'].append(
-            {
-                'id'        : _id,
-                'name'      : name,
-                'folderPath': name,
-            }
+        config['blogList'].insert(0, {
+            'id': _id,
+            'name': name,
+            'folderPath': name,
+        }
         )
         # print(config['blogList'])
         with configPath.open('w+') as configFile:
@@ -112,12 +111,13 @@ def entry(app):
         except:
             print('Sth wrong with template!')
             assert(False)
-        
+
         # change all path to /docs/js /docs/css /docs/img
         prefix = ''
         if not isForDev:
             prefix = '/blog'
-        template = re.sub(r'\./(?P<type>js|css|img)', prefix+'/\g<type>', templateFile.read())
+        template = re.sub(r'\./(?P<type>js|css|img)',
+                          prefix+'/\g<type>', templateFile.read())
         templateFile.close()
         print('Replace template...')
 

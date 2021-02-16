@@ -9,7 +9,7 @@
     <div v-else class="content" id="content">
       <PostItem v-for="blog in blogList" :key="blog.id" :post="blog"></PostItem>
     </div>
-    <Footer v-if='!isLoading'></Footer>
+    <Footer v-if="!isLoading"></Footer>
   </div>
 </template>
 
@@ -53,12 +53,9 @@ export default {
     // get configList
 
     Promise.any([
-      // window.fetch("blogs/config.json"),
       window.fetch("blogs/config.json"),
     ])
       .then((r) => {
-        // console.log(r.json());
-        // r.text().then(data=>console.log(data));
         return r.json();
       })
       .then((configList) => {
@@ -66,12 +63,9 @@ export default {
         that.isLoading = false;
       })
       .catch((e) => {
-        console.log("Sth went wrong!");
         console.log(e);
-        // try use the dev Path
         window.fetch("/blogs/config");
       });
-
   },
   mounted() {
     // console.log(this.blogList);

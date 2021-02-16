@@ -3,6 +3,9 @@ import App from './blog.vue'
 
 Vue.config.productionTip = false
 
+import Util from '@assets/js/util.js'
+Vue.prototype.$isDev = Util.isDev
+
 new Vue({
   render: h => h(App)
 }).$mount('#app')
