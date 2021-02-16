@@ -162,16 +162,16 @@ def entry(app):
                     while l < r:
                         i = (l+r)//2
                         it = buildConfig[i]['time']
-                        if(blogInfo['time']<it):        # blogInfo comes before the middle
+                        if(blogInfo['time'] < it):        # blogInfo comes before the middle
                             l = i+1
-                        else: 
+                        else:
                             r = i
                     buildConfig.insert(l, blogInfo)
 
-
             # use markdown2 to read the md file and convert it to html
             try:
-                blogHtml = markdown2.markdown_path(str(blogPath))
+                blogHtml = markdown2.markdown_path(
+                    str(blogPath), extras=['fenced-code-blocks', 'header-ids'])
             # print(blogHtml)
             except:
                 Warning('Config contains a missing blog!\nName: '+blog['name'])

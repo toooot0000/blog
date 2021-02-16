@@ -12,8 +12,21 @@ This is a paragraph, **This is bold**,
 > [!TIP]
 > This is tips.
 
-    This is code?
-    should be 
+let's see some quotes
+> This is a quote
+> should be
+
+```python
+# This is a part of python code~
+should = 'be'
+alright = '.'
+```
+
+```javascript
+let this = 'should';
+const may = 'be';
+```
+
 
 This is a icon.
 Let's see if it can be ![pic](favicon.ico) inline~

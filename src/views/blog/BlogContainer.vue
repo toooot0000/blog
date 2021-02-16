@@ -11,7 +11,9 @@ import gsap from "gsap";
 import scrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(scrollTrigger);
 
-// import showdown from 'showdown'
+import hljs from "highlight.js"
+import Vue from 'vue'
+Vue.use(hljs.vuePlugin)
 
 export default {
   name: "BlogContainer",
@@ -42,6 +44,7 @@ export default {
     // move #blog-content to center
     let blogContent = document.getElementById("blog-content");
     document.getElementById("blog-container").appendChild(blogContent);
+    
   },
 };
 </script>
