@@ -2,10 +2,6 @@
 @use './mixin.scss';
 
 #blog-container{
-    pre{
-        background-color: map-get($map: config.$colors, $key: "bg-code");
-        @include mixin.padding(1rem);
-    }
     strong{
         font-weight: config.$font-weight-bold;
     }

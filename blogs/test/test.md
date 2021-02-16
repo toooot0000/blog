@@ -23,7 +23,7 @@ alright = '.'
 ```
 
 ```javascript
-let this = 'should';
+let thisThing = 'should';
 const may = 'be';
 ```
 

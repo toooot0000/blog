@@ -4518,10 +4518,6 @@ html {
     margin-left: auto !important;
   }
 }
-#blog-container pre {
-  background-color: rgba(64, 64, 64, 0.3);
-  padding: 1rem;
-}
 #blog-container strong {
   font-weight: 700;
 }
