@@ -71,6 +71,10 @@ export default {
       default:
         "我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述",
     },
+    isInBlog:{
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -113,6 +117,18 @@ export default {
     this.navRightList[0].url = urlBase;
     this.navRightList[1].url = urlBase + "about.html";
 
+    if(this.isInBlog){
+      // github
+      this.linkList[0].picPath =
+        (this.$isDev() ? "/img/" : "/blog/img/") +
+        "header/GitHub-Mark-Light-120px-plus.png";
+
+      // email
+      this.linkList[1].picPath =
+        (this.$isDev() ? "/img/" : "/blog/img/") +
+        "header/email3.png";
+
+    }
     // github
     // this.linkList[0].picPath =
     //   (this.$isDev() ? "/img/" : "img/") +

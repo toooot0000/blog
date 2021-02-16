@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <Header v-model="isHeaderAnimFinished" :title="title" :desc="desc"></Header>
+    <Header
+      v-model="isHeaderAnimFinished"
+      :title="title"
+      :desc="desc"
+      :isInBlog="true"
+    ></Header>
     <div class="content" id="content">
       <!-- <div class="block"></div> -->
       <BlogContainer :md="md"></BlogContainer>
