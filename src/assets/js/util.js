@@ -1,5 +1,5 @@
 const isDev = ()=>{
-    return window.location.hostname == 'localhost'
+    return document.location.hostname == 'localhost'
 }
 
 export default {

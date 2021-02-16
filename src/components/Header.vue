@@ -115,12 +115,13 @@ export default {
 
     // github
     this.linkList[0].picPath =
-      (this.$isDev() ? "/img/" : "img/") +
-      "header/GitHub-Mark-Light-120px-plus.png";
+      // (this.$isDev() ? "/img/" : "img/") +
+      "img/header/GitHub-Mark-Light-120px-plus.png";
+    
     // email
     this.linkList[1].picPath =
-      (this.$isDev() ? "/img/" : "img/") +
-      "header/email3.png";
+      // (this.$isDev() ? "/img/" : "img/") +
+      "img/header/email3.png";
   },
   mounted() {
     const that = this;
