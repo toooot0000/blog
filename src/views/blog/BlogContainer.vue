@@ -51,6 +51,7 @@ export default {
 
 <style lang='scss' scoped>
 @use "@assets/sass/base.scss";
+@use "@assets/sass/blog.scss";
 .blog-container {
   transform: translateY(100vh);
   opacity: 0;
