@@ -27,7 +27,7 @@ export default {
   mounted() {
     gsap.to(".blog-container", {
       scrollTrigger: {
-        trigger: ".content",
+        trigger: ".blog-content",
         start: 20,
         end: 150,
         pin: false,

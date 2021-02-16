@@ -5,7 +5,7 @@
       title="About Jerry Ye"
       desc="关于Jerry Ye的一些事情。"
     ></Header>
-    <div class="content" id="content">
+    <div class="about-content" id="content">
       <div class="container">
         <div>别看了。啥也没有</div>
       </div>
@@ -46,16 +46,15 @@ export default {
     ],
     configList: [],
   }),
-  beforeMount() {},
   mounted() {
-    gsap.to(".content", {
+    gsap.to(".about-content", {
       scrollTrigger: {
-        trigger: ".content",
+        trigger: ".container",
         start: 20,
         end: 150,
         pin: false,
-        // markers: true,
-        scrub: 0.05,
+        markers: true,
+        scrub: 1,
       },
       y: 0,
       opacity: 1,
@@ -68,7 +67,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
+.about-content {
   min-height: 100vh;
   margin-top: 200px;
   transform: translateY(100vh);

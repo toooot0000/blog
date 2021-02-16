@@ -61,7 +61,6 @@ export default {
       .then((configList) => {
         that.blogList = configList;
         that.isLoading = false;
-        that.blogListSort()
       })
       .catch((e) => {
         console.log(e);
@@ -115,9 +114,6 @@ export default {
           console.log(e);
         });
     },
-    blogListSort(){
-      // try to insert page in a time order instead of sort the list after fetched.
-    }
   },
 };
 </script>
