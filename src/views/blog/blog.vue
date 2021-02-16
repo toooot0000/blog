@@ -31,7 +31,9 @@ import Vue from "vue";
 import VueCookies from "vue-cookies";
 Vue.use(VueCookies);
 
-import "whatwg-fetch";
+// import {fetch as fetchPolyfill} from 'whatwg-fetch'
+
+// fetchPolyfill(...)  // use polyfill implementation
 
 export default {
   name: "PageMain",

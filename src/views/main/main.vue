@@ -26,7 +26,9 @@ import Vue from "vue";
 import VueCookies from "vue-cookies";
 Vue.use(VueCookies);
 
-import "whatwg-fetch";
+// import "whatwg-fetch";
+
+import {fetch as fetchPolyfill} from 'whatwg-fetch'
 
 export default {
   name: "PageMain",
@@ -52,9 +54,8 @@ export default {
     const that = this;
     // get configList
 
-    Promise.any([
-      window.fetch("blogs/config.json"),
-    ])
+    
+    fetchPolyfill("blogs/config.json")
       .then((r) => {
         return r.json();
       })
@@ -64,7 +65,7 @@ export default {
       })
       .catch((e) => {
         console.log(e);
-        window.fetch("/blogs/config");
+        fetchPolyfill("/blogs/config");
       });
   },
   mounted() {
