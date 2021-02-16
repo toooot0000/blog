@@ -93,12 +93,12 @@ export default {
         {
           // github
           href: "https://github.com/toooot0000",
-          picPath: "",
+          picPath: "img/header/GitHub-Mark-Light-120px-plus.png",
         },
         {
           // email
           href: "mailto:runan.ye@outlook.com",
-          picPath: "",
+          picPath: "img/header/email3.png",
         },
       ],
     };
@@ -114,14 +114,14 @@ export default {
     this.navRightList[1].url = urlBase + "about.html";
 
     // github
-    this.linkList[0].picPath =
-      // (this.$isDev() ? "/img/" : "img/") +
-      "img/header/GitHub-Mark-Light-120px-plus.png";
-    
+    // this.linkList[0].picPath =
+    //   (this.$isDev() ? "/img/" : "img/") +
+    //   "img/header/GitHub-Mark-Light-120px-plus.png";
+
     // email
-    this.linkList[1].picPath =
-      // (this.$isDev() ? "/img/" : "img/") +
-      "img/header/email3.png";
+    // this.linkList[1].picPath =
+    //   (this.$isDev() ? "/img/" : "img/") +
+    //   "img/header/email3.png";
   },
   mounted() {
     const that = this;
