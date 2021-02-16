@@ -13,6 +13,7 @@ $colors: (
   "warning": #a10000,
   "success": #0011aa,
   "bg"     : rgba(64, 64, 64, 0.3),
+  "bg-code": rgba(64, 64, 64, 0.3),
   "shadow" : #0d1a25,
 );
 
@@ -33,6 +34,6 @@ $font-size-minor   : 0.8rem;
 
 $font-weight-normal : 300;
 $font-weight-lighter: 200;
-$font-weight-bold   : 500;
+$font-weight-bold   : 700;
 
 $max-width: 720px;

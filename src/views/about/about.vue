@@ -53,7 +53,7 @@ export default {
         start: 20,
         end: 150,
         pin: false,
-        markers: true,
+        // markers: true,
         scrub: 1,
       },
       y: 0,

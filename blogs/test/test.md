@@ -4,12 +4,31 @@
 
 ### This is a h3
 
+---
+
 This is a paragraph, **This is bold**,
 *this is Italic*, `This is some codes`.
 
 > [!TIP]
 > This is tips.
 
-![pic](favicon.ico)
+    This is code?
+    should be 
 
-[This is a link](http://www.baidu.com)
+This is a icon.
+Let's see if it can be ![pic](favicon.ico) inline~
+
+This is a sentence and a [This is a link](http://www.baidu.com) inline link.
+
+- This
+- is
+- a
+- unordered
+- list
+
+1. this
+2. is
+   1. a
+   2. nested
+3. ordered
+4. list!
