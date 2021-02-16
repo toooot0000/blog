@@ -3,7 +3,7 @@
     <div class="ctn">
       <div class="left">
         <div class="time">
-          {{ post.timeDate.format("YYYY MM") }}
+          {{ post.timeDate.format("YYYY\nMM") }}
         </div>
         <div class="tags-list">
           <div class="tag">
@@ -59,7 +59,7 @@ export default {
     // console.log(this.$props);
     let t = this.post.time.split("-").map((v) => parseInt(v));
     // console.log(t);
-    this.post.timeDate = new Date(t[0], t[1], t[2]);
+    this.post.timeDate = new Date(t[0], t[1]-1, t[2]);
   },
   mounted() {
     gsap.to(".post-item", {
@@ -131,7 +131,7 @@ export default {
     color: base.$text-color-minor;
     text-align: left;
     vertical-align: top;
-    // margin-top: 0.3rem;
+    margin-top: 0.2rem;
   }
   .title {
     @include base.font-size(base.$font-size-title);
