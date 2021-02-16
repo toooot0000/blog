@@ -1,8 +1,8 @@
 @use './config.scss';
 @use './mixin.scss';
 
-#blog-content{
-    code{
+#blog-container{
+    pre{
         background-color: map-get($map: config.$colors, $key: "bg-code");
     }
     strong{

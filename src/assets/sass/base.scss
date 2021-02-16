@@ -8,6 +8,7 @@
 @forward './config.scss';
 @use './mixin.scss';
 @forward './mixin.scss';
+@use './blog.scss';
 
 html {
   font-family: "Noto Sans SC", sans-serif;

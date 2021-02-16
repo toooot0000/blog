@@ -62,7 +62,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '@assets/sass/blog.scss';
 .content {
   min-height: 100vh;
   margin-top: 200px;
