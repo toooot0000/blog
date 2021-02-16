@@ -71,10 +71,10 @@ export default {
       default:
         "我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述我是描述",
     },
-    isInBlog:{
+    isInBlog: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -117,7 +117,7 @@ export default {
     this.navRightList[0].url = urlBase;
     this.navRightList[1].url = urlBase + "about.html";
 
-    if(this.isInBlog){
+    if (this.isInBlog) {
       // github
       this.linkList[0].picPath =
         (this.$isDev() ? "/img/" : "/blog/img/") +
@@ -125,9 +125,7 @@ export default {
 
       // email
       this.linkList[1].picPath =
-        (this.$isDev() ? "/img/" : "/blog/img/") +
-        "header/email3.png";
-
+        (this.$isDev() ? "/img/" : "/blog/img/") + "header/email3.png";
     }
   },
   mounted() {
@@ -156,7 +154,7 @@ export default {
             window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
-          that.forceScrollTo(that.firstScrollTarget);
+          if (!that.$isMobile()) that.forceScrollTo(that.firstScrollTarget);
         },
         onEnterBack() {
           if (that.animTimeOut) {
@@ -206,7 +204,7 @@ export default {
           end: that.firstScrollTarget - 30,
           // markers: true,
           onEnterBack() {
-            that.forceScrollTo(0);
+            if (!that.$isMobile()) that.forceScrollTo(0);
           },
         },
       });
