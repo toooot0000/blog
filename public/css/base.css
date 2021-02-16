@@ -4525,6 +4525,19 @@ html {
 #blog-container strong {
   font-weight: 700;
 }
+#blog-container blockquote {
+  background-color: rgba(26, 38, 58, 0.3);
+  margin-left: calc(1.325rem + 0.9vw);
+}
+#blog-container blockquote * {
+  color: #777777;
+  font-style: italic;
+}
+@media (min-width: 1200px) {
+  #blog-container blockquote {
+    margin-left: 2rem;
+  }
+}
 
 html {
   font-family: "Noto Sans SC", sans-serif;
@@ -4600,6 +4613,10 @@ a:active {
 
 .text-bg-code {
   color: rgba(64, 64, 64, 0.3);
+}
+
+.text-bg-quote {
+  color: rgba(26, 38, 58, 0.3);
 }
 
 .text-shadow {

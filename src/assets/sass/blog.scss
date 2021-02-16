@@ -9,4 +9,12 @@
     strong{
         font-weight: config.$font-weight-bold;
     }
+    blockquote{
+        background-color: map-get($map: config.$colors, $key: 'bg-quote');
+        & *{
+            color: config.$text-color-minor;
+            font-style: italic;
+        }
+        @include mixin.margin-left(2rem)
+    }
 }
