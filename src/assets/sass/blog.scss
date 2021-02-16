@@ -13,5 +13,8 @@
             color: config.$text-color-minor;
             font-style: italic;
         }
+        p:last-child{
+            margin-bottom: 0;
+        }
     }
 }
