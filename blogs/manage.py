@@ -153,7 +153,21 @@ def entry(app):
                 blogInfo['path'] = 'blogs/' + blog['folderPath']
 
                 # append blogInfo to buildConfig
-                buildConfig.append(blogInfo)
+                #
+                if len(buildConfig) == 0:
+                    buildConfig.append(blogInfo)
+                else:
+                    # insert algorism
+                    l, r = 0, len(buildConfig)
+                    while l < r:
+                        i = (l+r)//2
+                        it = buildConfig[i]['time']
+                        if(blogInfo['time']<it):        # blogInfo comes before the middle
+                            l = i+1
+                        else: 
+                            r = i
+                    buildConfig.insert(l, blogInfo)
+
 
             # use markdown2 to read the md file and convert it to html
             try:
