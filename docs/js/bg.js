@@ -25,10 +25,14 @@ resize();
 step();
 
 window.onresize = resize;
-document.onmousemove = onMouseMove;
-document.ontouchmove = onTouchMove;
-document.ontouchend = onMouseLeave;
-document.onmouseleave = onMouseLeave;
+document.addEventListener("mousemove", onMouseMove);
+// document.onmousemove = onMouseMove;
+document.addEventListener("touchmove", onTouchMove);
+// document.ontouchmove = onTouchMove;
+document.addEventListener("touchend", onMouseLeave);
+// document.ontouchend = onMouseLeave;
+document.addEventListener("mouseleave", onMouseLeave);
+// document.onmouseleave = onMouseLeave;
 
 function generate() {
   for (let i = 0; i < STAR_COUNT; i++) {
@@ -152,7 +156,7 @@ function render(context) {
     // context.beginPath();
     if (star.y > context.canvas.height) return;
     context.lineCap = "round";
-    context.lineWidth = STAR_SIZE * star.z * scale / 2;
+    context.lineWidth = (STAR_SIZE * star.z * scale) / 2;
     context.strokeStyle =
       "rgba(" +
       250 +
