@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header
+      v-if="!isLoading"
       v-model="isHeaderAnimFinished"
       title="Jerry Ye"
       desc="这是Jerry Ye的个人网站。记录一些稀奇古怪的东西。"
