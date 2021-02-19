@@ -94,7 +94,7 @@ export default {
       let scale = window.devicePixelRatio || 1;
       let width = window.innerWidth * scale;
       nvBgCvs.width = width;
-      nvBgCvs.height = 45;
+      nvBgCvs.height = window.innerHeight * 0.05;
     },
     updateBg() {
       // 获取背景cvs
@@ -145,7 +145,7 @@ export default {
   padding: 0;
   position: absolute;
   left: 50%;
-  top: 15px;
+  top: 1.5vh;
   transform: translateX(-50%);
 
   display: flex;
