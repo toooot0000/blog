@@ -45,3 +45,5 @@ This is a sentence and a [This is a link](http://www.baidu.com) inline link.
    2. nested
 3. ordered
 4. list!
+
+手机端样式千万不能拿vh/vw作基准。iOS端浏览器在滑动的时候会改变innerHeight，所以导致一部分动画的错位。

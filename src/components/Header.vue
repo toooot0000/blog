@@ -81,6 +81,9 @@ export default {
       isAnimFinished: false,
       isScrolling: false,
       animTimeOut: null,
+      animMain: null,
+      animContent: null,
+
       firstScrollTarget: 0,
 
       navRightList: [
@@ -107,6 +110,7 @@ export default {
       ],
     };
   },
+  // handle icons
   beforeMount() {
     let location = document.location;
     let urlBase = "/";
@@ -128,6 +132,7 @@ export default {
         (this.$isDev() ? "/img/" : "/blog/img/") + "header/email3.png";
     }
   },
+  // handle animations
   mounted() {
     const that = this;
     // 监听滚动事件
@@ -135,6 +140,7 @@ export default {
 
     // 初始化滚动吸附位置
     this.firstScrollTarget = 150;
+
     // 看一下当前的滚动位置
     this.scrollTop =
       document.documentElement.scrollTop ||
@@ -143,29 +149,34 @@ export default {
 
     // 绑定滚动动画
     {
-      let trigger = {
+      ScrollTrigger.create({
         trigger: ".wrp",
         start: 5,
         end: 50,
-        scrub: 0.1,
-        // markers: true,
+        markers: true,
         onEnter() {
           if (that.animTimeOut) {
             window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
-          if (!that.$isMobile()) that.forceScrollTo(that.firstScrollTarget);
+          if (!that.$isMobile()){
+            that.forceScrollTo(that.firstScrollTarget);
+          }
+          that.animMain.play();
+          that.animContent.play();
         },
         onEnterBack() {
           if (that.animTimeOut) {
             window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
+          that.animMain.reverse();
+          that.animContent.reverse();
         },
-      };
+      });
       // 滚动时主体形变动画
-      gsap.to(".header", {
-        scrollTrigger: trigger,
+      this.animMain = gsap.to(".header", {
+        paused: true,
         scale: 0.1,
         height: 100,
         width: 100,
@@ -180,7 +191,7 @@ export default {
           }, 500);
         },
       });
-      gsap.to(
+      this.animContent = gsap.to(
         [
           "#header-seperator",
           "#header-desc",
@@ -188,25 +199,12 @@ export default {
           "#header-link-list",
         ],
         {
-          scrollTrigger: trigger,
+          paused: true,
           duration: 0.2,
           opacity: 0,
           fontSize: "0.2rem",
         }
       );
-
-      // 空动画，在向上滚动到一定位置的时候直接滚动到第一屏
-      gsap.to(".wrp", {
-        scrollTrigger: {
-          trigger: ".wrp",
-          start: 5,
-          end: that.firstScrollTarget - 30,
-          // markers: true,
-          onEnterBack() {
-            if (!that.$isMobile()) that.forceScrollTo(0);
-          },
-        },
-      });
     }
   },
   destroyed() {
@@ -225,45 +223,12 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-      // console.log(that.scrollTop);
+        
       // 更新isScrollEnd
       that.isScrolling = true;
       setTimeout(() => {
         that.isScrolling = false;
       }, 300);
-    },
-    banMouseScroll() {
-      //给页面绑定滑轮滚动事件
-      if (document.addEventListener) {
-        document.addEventListener(
-          "DOMMouseScroll",
-          this.mouseScrollListener,
-          false
-        );
-      }
-      //滚动滑轮触发scrollFunction方法
-      window.addEventListener("mousewheel", this.mouseScrollListener, {
-        passive: false,
-      });
-    },
-    unbanMouseScroll() {
-      //给页面绑定滑轮滚动事件
-      if (document.removeEventListener) {
-        document.removeEventListener(
-          "DOMMouseScroll",
-          this.mouseScrollListener,
-          false
-        );
-      }
-      //滚动滑轮触发scrollFunction方法
-      window.removeEventListener("mousewheel", this.mouseScrollListener, {
-        passive: false,
-      });
-    },
-    mouseScrollListener(e) {
-      // console.log('阻止滚动！')
-      e = e || window.event;
-      e.preventDefault && e.preventDefault(); //禁止浏览器默认事件
     },
     forceScrollTo(target, threshold = 5, minSpd = 1, maxSpd = 30) {
       const that = this;
