@@ -213,10 +213,6 @@ export default {
           that.isAnimFinished = false;
         },
       };
-      // let ctn = document.getElementById('header-ctn')
-      // ctn.style.top = document.body.clientHeight/2;
-      // ctn.style.left = document.body.clientWidth/2;
-      // console.log(ctn);
       gsap.set('#header-ctn', {
         top: window.screen.availHeight/2,
         left: document.body.clientWidth/2,
@@ -275,11 +271,8 @@ export default {
   background: none;
   box-shadow: none;
   text-align: center;
-  // max-width: 90%;
   position: fixed;
-  // top: 50%;
-  // left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  // transform: translateX(-50%) translateY(-50%);
   z-index: inherit;
   transition: 0;
   &:hover {
