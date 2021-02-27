@@ -57,7 +57,7 @@
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import NavBar from "./NavBar";
-import posi from "@assets/js/position"
+// import posi from "@assets/js/position";
 gsap.registerPlugin(ScrollTrigger);
 export default {
   components: {
@@ -196,7 +196,7 @@ export default {
       let trigger = {
         trigger: ".wrp",
         start: 5,
-        end: that.$isMobile()? 200:50,
+        end: that.$isMobile() ? 200 : 50,
         scrub: 0.1,
         onEnter() {
           if (that.animTimeOut) {
@@ -214,25 +214,19 @@ export default {
           that.isAnimFinished = false;
         },
       };
-      let ctn = document.getElementById('header-ctn')
-      let size = posi.getElementSize(ctn)
-      gsap.set('#header-ctn', {
-        top: window.screen.availHeight/2,
-        left: document.body.clientWidth/2,
-        translateX: -size.width/2,
-        translateY: -size.height/2,
-      })
+      let ctn = document.getElementById("header-ctn");
+      // let size1 = posi.getElementSize(ctn);
+      let size = ctn.getBoundingClientRect();
+      // console.log(size1);
+      console.log(size);
+      gsap.set("#header-ctn", {
+        top: window.screen.availHeight / 2,
+        left: document.body.clientWidth / 2,
+        translateX: -size.width / 2,
+        translateY: -size.height / 2,
+      });
       // 滚动时主体形变动画
-      gsap.to("#header-ctn", 
-      // {
-      //   scrollTrigger: trigger,
-      //   scale: 1,
-      //   top: window.screen.availHeight/2,
-      //   left: document.body.clientWidth/2,
-      //   translateX: -size.width/2,
-      //   translateY: -size.height/2,
-      // },
-      {
+      gsap.to("#header-ctn", {
         scrollTrigger: trigger,
         scale: 0.1,
         height: 100,
@@ -241,7 +235,6 @@ export default {
         background: "white",
         opacity: 0.8,
         top: 25,
-        // left: document.body.clientWidth/2,
         translateX: -50,
         translateY: -50,
         borderRadius: "999rem",
