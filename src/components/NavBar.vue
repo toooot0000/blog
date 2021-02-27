@@ -51,7 +51,7 @@ export default {
     // 是否处于置顶状态
     isActive: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     // 左侧内容：
     // {名字：url}

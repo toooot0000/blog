@@ -1,5 +1,10 @@
 <template>
-  <div class="wrp">
+  <div
+    class="wrp"
+    :style="{
+      height: $isMobile ? '600px' : 'auto',
+    }"
+  >
     <NavBar
       :isActive="isAnimFinished"
       :leftList="[
@@ -141,71 +146,8 @@ export default {
     // 初始化滚动吸附位置
     this.firstScrollTarget = 150;
 
-    // 看一下当前的滚动位置
-    this.scrollTop =
-      document.documentElement.scrollTop ||
-      window.pageYOffset ||
-      document.body.scrollTop;
-
-    // 绑定滚动动画
-    {
-      ScrollTrigger.create({
-        trigger: ".wrp",
-        start: 5,
-        end: 50,
-        markers: true,
-        onEnter() {
-          if (that.animTimeOut) {
-            window.clearTimeout(that.animTimeOut);
-          }
-          that.isAnimFinished = false;
-          if (!that.$isMobile()){
-            that.forceScrollTo(that.firstScrollTarget);
-          }
-          that.animMain.play();
-          that.animContent.play();
-        },
-        onEnterBack() {
-          if (that.animTimeOut) {
-            window.clearTimeout(that.animTimeOut);
-          }
-          that.isAnimFinished = false;
-          that.animMain.reverse();
-          that.animContent.reverse();
-        },
-      });
-      // 滚动时主体形变动画
-      this.animMain = gsap.to(".header", {
-        paused: true,
-        scale: 0.1,
-        height: 100,
-        width: 100,
-        duration: 0.2,
-        background: "white",
-        opacity: 0.8,
-        top: 25,
-        borderRadius: "999rem",
-        onComplete: () => {
-          that.animTimeOut = setTimeout(() => {
-            that.isAnimFinished = true;
-          }, 500);
-        },
-      });
-      this.animContent = gsap.to(
-        [
-          "#header-seperator",
-          "#header-desc",
-          "#header-title",
-          "#header-link-list",
-        ],
-        {
-          paused: true,
-          duration: 0.2,
-          opacity: 0,
-          fontSize: "0.2rem",
-        }
-      );
-    }
+    // 设定动画
+    this.setAnim();
   },
   destroyed() {
     const that = this;
@@ -223,7 +165,7 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-        
+
       // 更新isScrollEnd
       that.isScrolling = true;
       setTimeout(() => {
@@ -247,6 +189,61 @@ export default {
         }, 16);
       }
     },
+    setAnim() {
+      let that = this;
+      let trigger = {
+        trigger: ".wrp",
+        start: 5,
+        end: that.$isMobile()? 200:50,
+        scrub: 0.1,
+        onEnter() {
+          if (that.animTimeOut) {
+            window.clearTimeout(that.animTimeOut);
+          }
+          that.isAnimFinished = false;
+          if (!that.$isMobile()) {
+            that.forceScrollTo(that.firstScrollTarget);
+          }
+        },
+        onEnterBack() {
+          if (that.animTimeOut) {
+            window.clearTimeout(that.animTimeOut);
+          }
+          that.isAnimFinished = false;
+        },
+      };
+      // 滚动时主体形变动画
+      gsap.to(".header", {
+        scrollTrigger: trigger,
+        scale: 0.1,
+        height: 100,
+        width: 100,
+        duration: 0.2,
+        background: "white",
+        opacity: 0.8,
+        top: 25,
+        borderRadius: "999rem",
+        onComplete: () => {
+          that.animTimeOut = setTimeout(() => {
+            that.isAnimFinished = true;
+          }, 500);
+        },
+      });
+      gsap.to(
+        [
+          "#header-seperator",
+          "#header-desc",
+          "#header-title",
+          "#header-link-list",
+        ],
+        {
+          scrollTrigger: trigger,
+          duration: 0.2,
+          opacity: 0,
+          fontSize: "0.2rem",
+        }
+      );
+    },
   },
   watch: {
     isAnimFinished: function (nVal) {
@@ -269,7 +266,7 @@ export default {
   background: none;
   box-shadow: none;
   text-align: center;
-  max-width: 90%;
+  // max-width: 90%;
   position: fixed;
   top: 50%;
   left: 50%;

@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="right">
-        <a class="title" :href="post.path" @click="clickTitle">
+        <a class="title" :href="post.path">
           {{ post.title }}
         </a>
 
@@ -56,35 +56,29 @@ export default {
     },
   },
   beforeMount() {
-    // console.log(this.$props);
     let t = this.post.time.split("-").map((v) => parseInt(v));
-    // console.log(t);
-    this.post.timeDate = new Date(t[0], t[1]-1, t[2]);
+    this.post.timeDate = new Date(t[0], t[1] - 1, t[2]);
   },
   mounted() {
-    gsap.to(".post-item", {
-      scrollTrigger: {
-        trigger: ".content",
-        start: 20,
-        end: 150,
-        pin: false,
-        // markers: true,
-        scrub: 0.05,
-      },
-      y: 0,
-      opacity: 1,
-      ease: "power1.out",
-      stagger: 0.1,
-    });
+    // if (!this.$isMobile()) {
+    this.setAnim();
+    // }
   },
   methods: {
-    clickTitle() {
-      // let pageList = this.$$cookies.get('page_list')
-      // this.$cookies.set('curPage', this.post.id.toString(), -1)
-      window.localStorage.setItem(
-        "cur-page-path",
-        this.post.path + "/" + this.post.name
-      );
+    setAnim() {
+      gsap.to(".post-item", {
+        scrollTrigger: {
+          trigger: ".content",
+          start: 20,
+          end: 150,
+          pin: false,
+          scrub: 0.05,
+        },
+        y: 0,
+        opacity: 1,
+        ease: "power1.out",
+        stagger: 0.1,
+      });
     },
   },
 };
@@ -92,6 +86,12 @@ export default {
 
 <style lang="scss" scoped>
 @use "@assets/sass/base.scss";
+
+.post-item {
+  transform: translateY(200px);
+  opacity: 0;
+}
+
 .ctn {
   @include base.padding(1.2rem);
   margin: 1.2rem auto;
@@ -99,7 +99,7 @@ export default {
   flex-flow: row nowrap;
   justify-content: center;
   align-items: flex-start;
-  max-width: 600px;
+  max-width: base.$max-width;
   position: relative;
   .upper {
     display: flex;

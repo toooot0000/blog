@@ -16,20 +16,14 @@
 
 <script>
 import Header from "@comps/Header.vue";
-import PostItem from "./PostItem";
 import Footer from "@comps/Footer.vue";
+import PostItem from "./PostItem";
 
 import gsap from "gsap";
 import scrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(scrollTrigger);
 
-import Vue from "vue";
-import VueCookies from "vue-cookies";
-Vue.use(VueCookies);
-
-// import "whatwg-fetch";
-
-import {fetch as fetchPolyfill} from 'whatwg-fetch'
+import { fetch as fetchPolyfill } from "whatwg-fetch";
 
 export default {
   name: "PageMain",
@@ -54,8 +48,6 @@ export default {
     // read blogs/config.json
     const that = this;
     // get configList
-
-    
     fetchPolyfill("blogs/config.json")
       .then((r) => {
         return r.json();
@@ -123,10 +115,6 @@ export default {
 <style lang="scss" scoped>
 .content {
   min-height: 100vh;
-  margin-top: 200px;
-}
-.post-item {
-  transform: translateY(100vh);
-  opacity: 0;
+  // margin-top: 200px;
 }
 </style>
