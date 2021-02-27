@@ -17,6 +17,7 @@
     ></NavBar>
     <div
       class="header ctn container"
+      id="header-ctn"
       :class="{
         finished: isAnimFinished,
       }"
@@ -212,8 +213,16 @@ export default {
           that.isAnimFinished = false;
         },
       };
+      // let ctn = document.getElementById('header-ctn')
+      // ctn.style.top = document.body.clientHeight/2;
+      // ctn.style.left = document.body.clientWidth/2;
+      // console.log(ctn);
+      gsap.set('#header-ctn', {
+        top: window.screen.availHeight/2,
+        left: document.body.clientWidth/2,
+      })
       // 滚动时主体形变动画
-      gsap.to(".header", {
+      gsap.to("#header-ctn", {
         scrollTrigger: trigger,
         scale: 0.1,
         height: 100,
@@ -268,8 +277,8 @@ export default {
   text-align: center;
   // max-width: 90%;
   position: fixed;
-  top: 50%;
-  left: 50%;
+  // top: 50%;
+  // left: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: inherit;
   transition: 0;
