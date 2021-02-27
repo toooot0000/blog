@@ -213,9 +213,12 @@ export default {
           that.isAnimFinished = false;
         },
       };
+      let ctn = document.getElementById('header-ctn')
       gsap.set('#header-ctn', {
         top: window.screen.availHeight/2,
         left: document.body.clientWidth/2,
+        translateX: -ctn.style.width/2,
+        translateY: -ctn.style.height/2,
       })
       // 滚动时主体形变动画
       gsap.to("#header-ctn", {
