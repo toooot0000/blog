@@ -57,7 +57,7 @@
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import NavBar from "./NavBar";
-// import posi from "@assets/js/position";
+import posi from "@assets/js/position";
 gsap.registerPlugin(ScrollTrigger);
 export default {
   components: {
@@ -216,7 +216,7 @@ export default {
       };
       let ctn = document.getElementById("header-ctn");
       // let size1 = posi.getElementSize(ctn);
-      let size = ctn.getBoundingClientRect();
+      let size = ctn.getBoundingClientRect() || posi.getElementSize();
       // console.log(size1);
       console.log(size);
       gsap.set("#header-ctn", {

@@ -27,7 +27,7 @@ const getStyle = el => {
     return el.currentStyle;
   }
 };
-const getWH = (el, name) => {
+const getWH = (el, name, countBorder = true, countPadding = true) => {
   var val = name === "width" ? el.offsetWidth : el.offsetHeight,
     which = name === "width" ? ["Left", "Right"] : ["Top", "Bottom"];
   // display is none
@@ -36,19 +36,39 @@ const getWH = (el, name) => {
   }
   var style = getStyle(el);
   // 左右或上下两边的都减去
-  for (var i = 0, a; (a = which[i++]); ) {
-    val -= parseFloat(style["border" + a + "Width"]) || 0;
-    val -= parseFloat(style["padding" + a]) || 0;
+  for (let a in which) {
+    if (!countBorder) {
+      val -= parseFloat(style["border" + a + "Width"]) || 0;
+    }
+    if (!countPadding) {
+      val -= parseFloat(style["padding" + a]) || 0;
+    }
   }
   return val;
 };
 
-const getElementSize = (ele)=>{
-  return {
-    width: getWH(ele, 'width'),
-    height: getWH(ele, 'height')
+// const getContentBoxSize = ele => {
+//   return {
+//     width: getWH(ele, "width"),
+//     height: getWH(ele, "height")
+//   };
+// };
+
+const getElementSize = ele => {
+  let countBorder = false;
+  let countPadding = true;
+  if(ele.style['box-sizing'] == "border-box"){
+    countBorder = true;
+    countPadding = true;
+  }else if(ele.style['box-sizing'] == "content-box"){
+    countBorder = false;
+    countPadding = false;
   }
-}
+  return {
+    width: getWH(ele, "width", countBorder, countPadding),
+    height: getWH(ele, "height", countBorder, countPadding)
+  };
+};
 
 export default {
   getAbsolute,
