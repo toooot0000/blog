@@ -218,13 +218,27 @@ export default {
       // let size1 = posi.getElementSize(ctn);
       let size = ctn.getBoundingClientRect() || posi.getElementSize();
       // console.log(size1);
-      console.log(size);
-      gsap.set("#header-ctn", {
-        top: window.screen.availHeight / 2 + (that.$isMobile() ? -50 : 0),
-        left: document.body.clientWidth / 2,
-        translateX: -size.width / 2,
-        translateY: -size.height / 2,
-      });
+      // console.log(size);
+      let translate = {}
+      if (that.$isMobile()) {
+        gsap.set("#header-ctn", {
+          top: window.screen.availHeight / 2 - 50,
+          left: document.body.clientWidth / 2,
+          translateX: -size.width / 2,
+          translateY: -size.height / 2,
+        });
+        translate = {
+          translateX: -50,
+          translateY: -50,
+        }
+      } else {
+        gsap.set("#header-ctn", {
+          top: "50%",
+          left: "50%",
+          translateX: "-50%",
+          translateY: "-50%",
+        });
+      }
       // 滚动时主体形变动画
       gsap.to("#header-ctn", {
         scrollTrigger: trigger,
@@ -235,8 +249,9 @@ export default {
         background: "white",
         opacity: 0.8,
         top: 25,
-        translateX: -50,
-        translateY: -50,
+        // translateX: -50,
+        // translateY: -50,
+        ...translate,
         borderRadius: "999rem",
         onComplete: () => {
           that.animTimeOut = setTimeout(() => {
