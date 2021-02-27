@@ -23,9 +23,9 @@
           :key="item.text"
           :href="item.url"
           :style="{
-            'transition-delay': (leftList.length - ind - 1)*0.2+'s'
+            'transition-delay': (leftList.length - ind - 1) * 0.2 + 's',
           }"
-          >{{ item.text}}</a
+          >{{ item.text }}</a
         >
       </li>
       <li class="links right">
@@ -35,9 +35,9 @@
           :key="item.text"
           :href="item.url"
           :style="{
-            'transition-delay': ind*0.2+'s'
+            'transition-delay': ind * 0.2 + 's',
           }"
-          >{{ item.text}}</a
+          >{{ item.text }}</a
         >
       </li>
     </ul>
@@ -160,7 +160,7 @@ export default {
     display: inline-block;
     color: white;
     margin: 0 30px;
-    
+
     .link-item {
       color: inherit;
       text-decoration: none;
@@ -170,7 +170,7 @@ export default {
       margin: 0 10px;
       position: relative;
 
-      &::after{
+      &::after {
         visibility: visible;
         content: "";
         position: absolute;
@@ -181,12 +181,12 @@ export default {
         border-radius: 999rem;
         width: 0;
         height: 2px;
-        transition: all .2s;
+        transition: all 0.2s;
       }
 
       &:hover {
         text-decoration: none;
-        &::after{
+        &::after {
           width: 70%;
         }
       }
