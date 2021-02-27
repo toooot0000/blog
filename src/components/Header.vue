@@ -220,7 +220,7 @@ export default {
       // console.log(size1);
       console.log(size);
       gsap.set("#header-ctn", {
-        top: window.screen.availHeight / 2,
+        top: window.screen.availHeight / 2 + (that.$isMobile() ? -50 : 0),
         left: document.body.clientWidth / 2,
         translateX: -size.width / 2,
         translateY: -size.height / 2,
