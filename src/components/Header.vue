@@ -146,7 +146,7 @@ export default {
     window.addEventListener("scroll", that.scrollEvent);
 
     // 初始化滚动吸附位置
-    this.firstScrollTarget = 150;
+    this.firstScrollTarget = 250;
 
     // 设定动画
     this.setAnim();

@@ -2,8 +2,13 @@
 @use './mixin.scss';
 
 $blog-margin-common: 1.2rem;
+$blog-hr-color: rgba(128, 128, 128, 0.5);
 
 #blog-container{
+    max-width: config.$max-width;
+    hr{
+        color: $blog-hr-color;
+    }
     p{
         margin-bottom: $blog-margin-common;
     }
