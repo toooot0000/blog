@@ -27,14 +27,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.loading-content{
-  .icon{
-    &::after,
-    &::before{
-      
-    }
-  }
-}
 .lds-ripple {
   display: inline-block;
   position: relative;

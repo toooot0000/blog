@@ -1,7 +1,12 @@
 @use './config.scss';
 @use './mixin.scss';
 
+$blog-margin-common: 1.2rem;
+
 #blog-container{
+    p{
+        margin-bottom: $blog-margin-common;
+    }
     strong{
         font-weight: config.$font-weight-bold;
     }

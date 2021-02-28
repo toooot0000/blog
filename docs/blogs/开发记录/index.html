@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"><meta name="full-screen" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="icon" href="/blog/img/favicon.ico"><title>Jerry Ye`s Blog</title><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/atom-one-dark.min.css"><script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script><link rel="stylesheet" href="/blog/css/base.css"><script src="/blog/js/clearScrollHistory.js"></script><style>body {
         min-width: 320px !important;
-      }</style><link href="/blog/css/blog.96e44383.css" rel="preload" as="style"><link href="/blog/css/chunk-common.2244f594.css" rel="preload" as="style"><link href="/blog/js/blog.9ac58f65.js" rel="preload" as="script"><link href="/blog/js/chunk-common.01a1f4d3.js" rel="preload" as="script"><link href="/blog/js/chunk-vendors.5e8f5f67.js" rel="preload" as="script"><link href="/blog/css/chunk-common.2244f594.css" rel="stylesheet"><link href="/blog/css/blog.96e44383.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but Jerry Ye`s Blog doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div class="bg-ctn"><style>body {
+      }</style><link href="/blog/css/blog.57849d47.css" rel="preload" as="style"><link href="/blog/css/chunk-common.a5a4edb3.css" rel="preload" as="style"><link href="/blog/js/blog.9ac58f65.js" rel="preload" as="script"><link href="/blog/js/chunk-common.01a1f4d3.js" rel="preload" as="script"><link href="/blog/js/chunk-vendors.5e8f5f67.js" rel="preload" as="script"><link href="/blog/css/chunk-common.a5a4edb3.css" rel="stylesheet"><link href="/blog/css/blog.57849d47.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but Jerry Ye`s Blog doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div class="bg-ctn"><style>body {
           background-color: black;
         }
         .bg-ctn {
@@ -26,7 +26,48 @@
           position: fixed;
           /*width: 100%;
           height: 100%;*/
-        }</style><canvas class="bg-canvas" id="bg-cvs"></canvas><script src="/blog/js/bg.js"></script></div><div id="app" class="container" style="z-index: 1;"></div><div id="none"><div id="blog-content" class="blog-content"><h1 id="-1">开发记录</h1>
+        }</style><canvas class="bg-canvas" id="bg-cvs"></canvas><script src="/blog/js/bg.js"></script></div><div id="app" class="container" style="z-index: 1;"></div><div id="none"><div id="blog-content" class="blog-content"><h1 id="blog">Blog开发记录</h1>
+
+<hr />
+
+<p>记录下这个Blog到底是咋弄出来的。</p>
+
+<hr />
+
+<p>总之在吭哧吭哧搞了大概一个月之后总算是搞定了这个Blog。中间查了无数的文档踩了无数的坑，顺便还有“以为自己做完了结果上手机一看全乱了”的糟心经历。但是——</p>
+
+<blockquote>
+  <p>踩坑是学习的必然过程。</p>
+  
+  <p>By 我自己</p>
+</blockquote>
+
+<p>在这种精神的激励之下，我直面了各种奇妙的bug，最后姑且算是完成了这个破网页，后续优化什么的，随缘了。</p>
+
+<p>详细代码可以直接看仓库。整个项目概括来说，是用<code>vue.js</code>写模板，接着用自带的build工具输出，然后通过<code>manage.py</code>把md文件渲染进模板形成静态网页，最后再同步到github上就ok啦，轻松愉快。</p>
+
+<p>实际上<code>vue</code>自带有Server-side rendering，不过出于几个原因我最后还是没有用。一个是因为我py脚本差不多写完了才看到这个功能，一个是因为它主要是面向<code>Node.js</code>的服务器的，学习Node又需要时间成本，而且在github page上（好像？）比较难实现。所以就最后还是使用了现在这个笨办法。</p>
+
+<p>这里列一些开发过程中遇到的细节问题，作为这次开发的总结了。</p>
+
+<h3 id="vue-cli"><code>vue-cli</code>生成的脚手架配置修改</h3>
+
+<p><code>vue-cli</code>自己生成的脚手架里面，配置主要集中于<code>vue.config.js</code>这个文件中。<a href="https://cli.vuejs.org/zh/config">参考官方指南</a>根据需求，需要修改的内容包括：</p>
+
+<ol>
+<li><p>输出路径 <code>outputDir</code></p>
+
+<p>它自带的输出路径是在<code>(project folder)/dist</code>里面，而github page要求页面要么处于根目录要么处于<code>./docs</code>目录下。因此，这里把build路径配置成<code>./docs</code></p></li>
+<li><p>公共资源路径 <code>publicPath</code></p>
+
+<p>CLI默认的build出来的内容是会被部署在一个服务器的根目录里面，所以build出来的html里面共用资源的路径都是绝对目录。参考指南，根据具体环境配置不同的路径。</p></li>
+<li><p>输出多页面 <code>pages</code></p>
+
+<p>CLI生成的模板项目是一个标准的单页应用，配合<code>vue-route</code>就可以完成大部分业务逻辑。现在想了一下，其实应该是可以利用<code>vue-router</code>动态配置路由，让前端读取并渲染md文件，实现展示博客的业务需求的（新目标get）。不过还是暂先撇开<code>vue-router</code>，以后再说。博客需要至少有一个主页和一个博客内容的展示页面。这样必然就需要输出两个页面，也就是需要在<code>vue.config.js</code>里面配置上<code>pages</code>属性。</p></li>
+<li><p>配置别名</p>
+
+<p>按照官方指南的<code>chainWebpack</code>的方式配置就行。</p></li>
+</ol>
 </div><div id="blog-title">开发记录</div><div id="blog-desc">记录下这个Blog到底是咋弄出来的。</div></div><style>#none {
         display: none;
       }</style><script>hljs.initHighlightingOnLoad();</script><script src="/blog/js/chunk-vendors.5e8f5f67.js"></script><script src="/blog/js/chunk-common.01a1f4d3.js"></script><script src="/blog/js/blog.9ac58f65.js"></script></body></html>
