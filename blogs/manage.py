@@ -152,6 +152,12 @@ def entry(app):
                 # blogPath, used in the main page to update the blog list
                 blogInfo['path'] = 'blogs/' + blog['folderPath']
 
+                # is this blog hidden?
+                if 'hide' in blog.keys():
+                    blogInfo['hide'] = blog['hide']
+                else:
+                    blogInfo['hide'] = False
+
                 # append blogInfo to buildConfig
                 #
                 if len(buildConfig) == 0:

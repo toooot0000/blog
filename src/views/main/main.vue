@@ -53,7 +53,12 @@ export default {
         return r.json();
       })
       .then((configList) => {
-        that.blogList = configList;
+        // that.blogList = configList;
+        for(let blog of configList){
+          if(!blog['hide']){
+            that.blogList.push(blog)
+          }
+        }
         that.isLoading = false;
       })
       .catch((e) => {
