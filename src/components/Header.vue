@@ -185,7 +185,7 @@ export default {
           let dir = Math.sign(target - that.scrollTop);
           document.documentElement.scrollTop = document.body.scrollTop =
             that.scrollTop + spd * dir;
-          if (Math.abs(that.scrollTop - target) <= threshold) {
+          if (document.documentElement.scrollTop >= target - threshold) {
             clearInterval(timer);
           }
         }, 16);
@@ -219,7 +219,7 @@ export default {
       let size = ctn.getBoundingClientRect() || posi.getElementSize();
       // console.log(size1);
       // console.log(size);
-      let translate = {}
+      let translate = {};
       if (that.$isMobile()) {
         gsap.set("#header-ctn", {
           top: window.screen.availHeight / 2 - 50,
@@ -230,7 +230,7 @@ export default {
         translate = {
           translateX: -50,
           translateY: -50,
-        }
+        };
       } else {
         gsap.set("#header-ctn", {
           top: "50%",
