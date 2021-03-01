@@ -28,6 +28,8 @@ $z-ind-header : 1000;
 $z-ind-content: 0;
 $z-ind-bg     : -1000;
 
+$font-base: "Noto Sans SC", sans-serif;
+
 $font-size-main    : 1rem;
 $font-size-title   : 1.6rem;
 $font-size-subtitle: 1.3rem;
@@ -36,5 +38,8 @@ $font-size-minor   : 0.8rem;
 $font-weight-normal : 300;
 $font-weight-lighter: 200;
 $font-weight-bold   : 700;
+
+// bootstrap setup
+$font-family-monospace: $font-base;
 
 $max-width: 720px;
