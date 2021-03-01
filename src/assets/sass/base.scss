@@ -4,6 +4,10 @@
 
 @use './config.scss' as *;
 @forward './config.scss';
+
+// bootstrap setup
+$font-family-monospace: $font-base;
+
 @use '../../../node_modules/bootstrap/scss/bootstrap-reboot.scss';
 @use '../../../node_modules/bootstrap/scss/bootstrap-grid.scss';
 @forward '../../../node_modules/bootstrap/scss/bootstrap-grid.scss' as b-*;
