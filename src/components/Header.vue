@@ -268,6 +268,7 @@ export default {
           duration: 0.2,
           opacity: 0,
           fontSize: "0.2rem",
+          display: "none",
         }
       );
     },
