@@ -6,7 +6,7 @@ then
 fi
 
 read -p "What message:" msg
-if [ -z ${msg}]
+if [ -z ${msg} ]
 then
     msg="This is an automatic submit~"
 fi

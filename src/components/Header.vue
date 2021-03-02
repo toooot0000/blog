@@ -158,7 +158,9 @@ export default {
   },
   methods: {
     headerBackTop() {
-      if (this.isAnimFinished) this.forceScrollTo(0);
+      if (this.isAnimFinished){
+        this.forceScrollTo(0);
+      }
     },
     scrollEvent() {
       const that = this;
@@ -176,16 +178,18 @@ export default {
     },
     forceScrollTo(target, threshold = 5, minSpd = 1, maxSpd = 30) {
       const that = this;
+      const oriDir = Math.sign(target - that.scrollTop);
       if (Math.abs(that.scrollTop - target) > 0) {
         let timer = setInterval(() => {
+          let dif = target-that.scrollTop;
           let spd = Math.max(
-            Math.min(Math.abs(that.scrollTop - target) / 5, maxSpd),
+            Math.min(Math.abs(dif) / 5, maxSpd),
             minSpd
           );
-          let dir = Math.sign(target - that.scrollTop);
+          let dir = Math.sign(dif);
           document.documentElement.scrollTop = document.body.scrollTop =
             that.scrollTop + spd * dir;
-          if (document.documentElement.scrollTop >= target - threshold) {
+          if (Math.abs(dif)<=threshold || dif*oriDir<0) {
             clearInterval(timer);
           }
         }, 16);
@@ -212,11 +216,21 @@ export default {
             window.clearTimeout(that.animTimeOut);
           }
           that.isAnimFinished = false;
+          if (!that.$isMobile()) {
+            that.forceScrollTo(0);
+          }
         },
       };
       let ctn = document.getElementById("header-ctn");
       let size = ctn.getBoundingClientRect() || posi.getElementSize();
       let translate = {};
+      let headerContents = 
+        [
+          "#header-seperator",
+          "#header-desc",
+          "#header-title",
+          "#header-link-list",
+        ];
       if (that.$isMobile()) {
         gsap.set("#header-ctn", {
           top: window.screen.availHeight / 2 - 50,
@@ -256,19 +270,13 @@ export default {
           }, 500);
         },
       });
-      gsap.to(
-        [
-          "#header-seperator",
-          "#header-desc",
-          "#header-title",
-          "#header-link-list",
-        ],
+      gsap.to( headerContents,
         {
           scrollTrigger: trigger,
           duration: 0.2,
           opacity: 0,
           fontSize: "0.2rem",
-          display: "none",
+          display: "none"
         }
       );
     },
