@@ -34,6 +34,8 @@
 
 <hr />
 
+<h2 id="-2">正文</h2>
+
 <p>总之在吭哧吭哧搞了大概一个月总算是搞定了这个Blog。中间查了无数的文档踩了无数的坑，还有“以为自己做完了结果上手机一看全乱了”的糟心经历。但是——</p>
 
 <blockquote>
@@ -72,7 +74,7 @@
 <p>webpack自带有<a href="https://webpack.js.org/configuration/dev-server/">研发服务器</a>，因为上面讲的工作流程的关系，使用默认设置（即<code>/dist</code>目录）是无法测试单个博客页面的，所以需要把<code>devServer.contentBase</code>修改到<code>/docs</code>匹配py脚本差值之后的博客网页。</p></li>
 </ol>
 
-<h3 id="-2">页面的动画效果相关</h3>
+<h3 id="-3">页面的动画效果相关</h3>
 
 <p>背景的星空效果是从网上找的，自己调整了一下个别参数。第一屏的动画动画效果是使用的<a href="https://greensock.com/gsap/"><code>gsap</code></a>。使用上感觉还是不错的，各种接口都很方便。不过在手机上动画的定位出现了很严重的问题，整个动画会向画面的左上角飞过去。</p>
 
@@ -104,7 +106,11 @@ from time import gmtime, strftime
 
 <h3 id="sh">顺手写的.sh</h3>
 
-<p>每次修改博客之后都要一步一步手动走流程实在太麻烦了。最后受不了了写了个<code>.sh</code>，没啥技术含量。</p>
+<p>每次修改博客之后都要一步一步手动走流程实在太麻烦了。最后受不了了写了个<code>.sh</code>，没啥技术含量，就是把这几个常用命令粘一块儿了。</p>
+
+<h2 id="-4">结语</h2>
+
+<p>说是写了一个月，其实大概就两周？剩下的时间基本都在戴森球了。。。回头看看其实不是很难，基本上都是靠俺寻思之力就能搞定的问题。不过这种野路子搞出来的东西果然还是太麻烦了，下次还不如搞个hexo呢。</p>
 </div><div id="blog-title">开发记录</div><div id="blog-desc">记录下这个Blog到底是咋弄出来的。</div></div><style>#none {
         display: none;
       }</style><script>hljs.initHighlightingOnLoad();</script><script src="/blog/js/chunk-vendors.5e8f5f67.js"></script><script src="/blog/js/chunk-common.67740dd5.js"></script><script src="/blog/js/blog.9ac58f65.js"></script></body></html>
