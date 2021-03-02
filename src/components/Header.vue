@@ -215,10 +215,7 @@ export default {
         },
       };
       let ctn = document.getElementById("header-ctn");
-      // let size1 = posi.getElementSize(ctn);
       let size = ctn.getBoundingClientRect() || posi.getElementSize();
-      // console.log(size1);
-      // console.log(size);
       let translate = {};
       if (that.$isMobile()) {
         gsap.set("#header-ctn", {
@@ -253,7 +250,7 @@ export default {
         // translateY: -50,
         ...translate,
         borderRadius: "999rem",
-        onComplete: () => {
+        onComplete(){
           that.animTimeOut = setTimeout(() => {
             that.isAnimFinished = true;
           }, 500);
