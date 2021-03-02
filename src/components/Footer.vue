@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-      <div class="line auther">Copyright ©️ 叶汝楠 Jerry Ye </div>
+      <div class="line auther"> 叶汝楠 Jerry Ye </div>
   </div>
 </template>
 
