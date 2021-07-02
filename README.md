@@ -1,24 +1,8 @@
-# blog-pages
+# My Blog
+This is a hex-style github-doc based blog. Use Vue.js to build html template and link blog contents via Python script. 
+It is a rather cumbersome procedure. 
 
-## Project setup
-```
-npm install
-```
+---
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## TODO
+- optmize the whole structure
